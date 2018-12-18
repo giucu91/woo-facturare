@@ -52,6 +52,8 @@ class Facturare_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 
+		add_filter( 'plugin_action_links', array( $this, 'action_links' ), 10, 2 );
+
 	}
 
 	public function setting_page_class( $settings ) {
@@ -210,6 +212,15 @@ class Facturare_Admin {
 		$formats['default'] = "{name}\n{cnp}\n{company}\n{cui}\n{nr_reg_com}\n{nume_banca}\n{iban}\n{address_1}\n{address_2}\n{city}\n{state}\n{postcode}\n{country}";
 
 		return $formats;
+	}
+
+	public function action_links( $links, $file ){
+
+		if ( 'woo-facturare/facturare.php' == $file ) {
+			$links[] = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=facturare&section' ) . '">' . __( 'Setari', 'woo-facturare' ) . '</a>';
+		}
+
+		return $links;
 	}
 
 }

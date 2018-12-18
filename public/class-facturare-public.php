@@ -40,6 +40,44 @@ class Facturare_Public {
 	 */
 	private $version;
 
+	private $defaults = array(
+		'facturare_pers_fiz_label'               => 'Persoana Fizica',
+		'facturare_pers_fiz_cnp_label'           => 'CNP',
+		'facturare_pers_fiz_cnp_placeholder'     => 'Introduceti Codul numeric personal',
+		'facturare_pers_fiz_cnp_vizibility'      => 'yes',
+		'facturare_pers_fiz_cnp_required'        => 'yes',
+		'facturare_pers_fiz_cnp_error'           => 'Datorita legislatiei in vigoare trebuie sa completati campul CNP',
+		'facturare_pers_jur_label'               => 'Persoana Juridica',
+		'facturare_pers_jur_company_label'       => 'Nume Firma',
+		'facturare_pers_jur_company_placeholder' => 'Introduceti numele firmei dumneavoastra',
+		'facturare_pers_jur_company_vizibility'  => 'yes',
+		'facturare_pers_jur_company_required'    => 'yes',
+		'facturare_pers_jur_company_error'       => 'Pentru a va putea emite factura avem nevoie de numele firmei dumneavoastra',
+		'facturare_pers_jur_cui_label'              => 'CUI',
+		'facturare_pers_jur_cui_placeholder'        => 'Introduceti Codul Unic de Inregistrare',
+		'facturare_pers_jur_cui_vizibility'         => 'yes',
+		'facturare_pers_jur_cui_required'           => 'yes',
+		'facturare_pers_jur_cui_error'              => 'Pentru a va putea emite factura avem nevoie de CUI-ul firmei dumneavoastra',
+		'facturare_pers_jur_nr_reg_com_label'       => 'Nr. Reg. Com',
+		'facturare_pers_jur_nr_reg_com_placeholder' => 'J20/20/20.02.2020',
+		'facturare_pers_jur_nr_reg_com_vizibility'  => 'yes',
+		'facturare_pers_jur_nr_reg_com_required'    => 'yes',
+		'facturare_pers_jur_nr_reg_com_error'       => 'Pentru a va putea emite factura avem nevoie de numarul de ordine in registrul comertului',
+		'facturare_pers_jur_nume_banca_label'       => 'Nume Banca',
+		'facturare_pers_jur_nume_banca_placeholder' => 'Numele bancii cu care lucrati',
+		'facturare_pers_jur_nume_banca_vizibility'  => 'no',
+		'facturare_pers_jur_nume_banca_required'    => 'no',
+		'facturare_pers_jur_nume_banca_error'       => 'Pentru a va putea emite factura avem nevoie de numele bancii cu care lucrati',
+		'facturare_pers_jur_iban_label'             => 'IBAN',
+		'facturare_pers_jur_iban_placeholder'       => 'Numarul contului IBAN',
+		'facturare_pers_jur_iban_vizibility'        => 'no',
+		'facturare_pers_jur_iban_required'          => 'no',
+		'facturare_pers_jur_iban_error'             => 'Pentru a va putea emite factura avem nevoie de numarul contului',
+		'facturare_output'  => 'select',
+		'facturare_default' => 'pers-fiz',
+		'facturare_label'   => 'Tip Facturare',
+	);
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -79,11 +117,12 @@ class Facturare_Public {
 
 	public function override_checkout_fields( $fields ) {
 
-		$options = get_option( 'av_facturare' );
+		$options = get_option( 'av_facturare', array() );
+		$options = wp_parse_args( $options, $this->defaults );
 		$customer_id = get_current_user_id();
 		$customer_facturare = get_user_meta( $customer_id, 'tip_facturare', true );
 		
-		$facturare = '' != $customer_facturare ? str_replace( '-', '_', $customer_facturare ) : $options['facturare_default'];
+		$facturare = $customer_facturare ? $customer_facturare : $options['facturare_default'];
 
 		// Add Facturare Field
 		$ordered_fields['tip_facturare'] = array(
@@ -96,7 +135,7 @@ class Facturare_Public {
 				'pers-jur' => $options['facturare_pers_jur_label'],
 			),
 			'default'  => $options['facturare_default'],
-			'priority' => $primary_field_priority,
+			'priority' => 0,
 			'clear'    => true,
 		);
 
@@ -117,7 +156,7 @@ class Facturare_Public {
 				'needed_req'  => $options['facturare_pers_fiz_cnp_required'],
 			);
 
-			if ( 'pers_fiz' != $facturare ) {
+			if ( 'pers-fiz' != $facturare ) {
 				$extra_fields['cnp']['class'][] = 'av-hide';
 			}
 
@@ -133,7 +172,7 @@ class Facturare_Public {
 			$extra_fields['billing_company']['class'][]     = 'show_if_pers_jur';
 			$extra_fields['billing_company']['required']    = false;
 
-			if ( 'pers_jur' != $facturare ) {
+			if ( 'pers-jur' != $facturare ) {
 				$extra_fields['billing_company']['class'][] = 'av-hide';
 			}
 
@@ -151,7 +190,7 @@ class Facturare_Public {
 				'needed_req'  => $options['facturare_pers_jur_cui_required'],
 			);
 
-			if ( 'pers_jur' != $facturare ) {
+			if ( 'pers-jur' != $facturare ) {
 				$extra_fields['cui']['class'][] = 'av-hide';
 			}
 
@@ -169,7 +208,7 @@ class Facturare_Public {
 				'needed_req'  => $options['facturare_pers_jur_nr_reg_com_required'],
 			);
 
-			if ( 'pers_jur' != $facturare ) {
+			if ( 'pers-jur' != $facturare ) {
 				$extra_fields['nr_reg_com']['class'][] = 'av-hide';
 			}
 
@@ -187,7 +226,7 @@ class Facturare_Public {
 				'needed_req'  => $options['facturare_pers_jur_nume_banca_required'],
 			);
 
-			if ( 'pers_jur' != $facturare ) {
+			if ( 'pers-jur' != $facturare ) {
 				$extra_fields['nume_banca']['class'][] = 'av-hide';
 			}
 
@@ -205,7 +244,7 @@ class Facturare_Public {
 				'needed_req'  => $options['facturare_pers_jur_iban_required'],
 			);
 
-			if ( 'pers_jur' != $facturare ) {
+			if ( 'pers-jur' != $facturare ) {
 				$extra_fields['iban']['class'][] = 'av-hide';
 			}
 		}
@@ -261,7 +300,8 @@ class Facturare_Public {
 
 	public function validate_checkout() {
 
-		$options = get_option( 'av_facturare' );
+		$options = get_option( 'av_facturare', array() );
+		$options = wp_parse_args( $options, $this->defaults );
 
 		if ( 'pers-fiz' == $_POST['tip_facturare'] ) {
 			
@@ -310,7 +350,8 @@ class Facturare_Public {
 			return $fields;
 		}
 
-		$options = get_option( 'av_facturare' );
+		$options = get_option( 'av_facturare', array() );
+		$options = wp_parse_args( $options, $this->defaults );
 		$customer_id = get_current_user_id();
 
 		// Add Facturare Field
@@ -324,7 +365,7 @@ class Facturare_Public {
 				'pers-jur' => $options['facturare_pers_jur_label'],
 			),
 			'default'  => $options['facturare_default'],
-			'priority' => $primary_field_priority,
+			'priority' => 0,
 			'clear'    => true,
 			'value'    => get_user_meta( $customer_id, 'tip_facturare', true ),
 		);

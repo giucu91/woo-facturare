@@ -2,18 +2,17 @@
 
 /**
  * Plugin Name:       Facturare - Persoana Fizica sau Juridica
- * Plugin URI:        http://avianstudio.com/facturare/
+ * Plugin URI:        https://facturare.georgeciobanu.com
  * Description:       Adauga campuri necesare facturarii persoanelor fizice sau juridice conform legislatiei in vigoare.
  * Version:           1.0.0
- * Author:            Avian Studio
- * Author URI:        http://avianstudio.com
+ * Author:            George Ciobanu
  * Text Domain:       facturare
  * Domain Path:       /languages
  */
 
 /*
 
-Integrate with :
+Integrated with :
 WooCommerce PDF Invoices -> https://wordpress.org/plugins/woocommerce-pdf-invoices/
 WooCommerce PDF Invoices & Packing Slips -> https://wordpress.org/plugins/woocommerce-pdf-invoices-packing-slips/
 
