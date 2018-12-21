@@ -24,7 +24,7 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 	 */
 	public function __construct() {
 		$this->id    = 'facturare';
-		$this->label = __( 'Facturare', 'woo-facturare' );
+		$this->label = esc_html__( 'Facturare', 'woo-facturare' );
 
 		parent::__construct();
 	}
@@ -36,9 +36,9 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 	 */
 	public function get_sections() {
 		$sections = array(
-			''         => __( 'General', 'woo-facturare' ),
-			'pers-fiz' => __( 'Persoana Fizica', 'woo-facturare' ),
-			'pers-jur' => __( 'Persoana Juridica', 'woo-facturare' ),
+			''         => esc_html__( 'General', 'woo-facturare' ),
+			'pers-fiz' => esc_html__( 'Persoana Fizica', 'woo-facturare' ),
+			'pers-jur' => esc_html__( 'Persoana Juridica', 'woo-facturare' ),
 		);
 
 		return apply_filters( 'woocommerce_get_sections_' . $this->id, $sections );
@@ -79,15 +79,15 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 		if ( 'pers-fiz' === $current_section ) {
 			$settings = array(
 				array(
-					'title' => __( 'Setari Persoane Fizice', 'woo-facturare' ),
+					'title' => esc_html__( 'Setari Persoane Fizice', 'woo-facturare' ),
 					'type'  => 'title',
 					'desc'  => '',
 					'id'    => 'facturare_pers_fiz_start',
 				),
 				array(
-	                'name'    => __( 'Label Persoana Fizica', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Label Persoana Fizica', 'woo-facturare' ),
 	                'type'    => 'text',
-	                'default' => 'Persoana Fizica',
+	                'default' => esc_html__( 'Persoana Fizica', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_fiz_label]'
 	            ),
 	            array(
@@ -96,41 +96,41 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 				),
 
 				array(
-					'title' => __( 'Camp CNP', 'woo-facturare' ),
+					'title' => esc_html__( 'Camp CNP', 'woo-facturare' ),
 					'type'  => 'title',
 					'desc'  => '',
 					'id'    => 'facturare_pers_fiz_cnp_start',
 				),
 				array(
-	                'name'    => __( 'Label', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Label', 'woo-facturare' ),
 	                'type'    => 'text',
-	                'default' => 'CNP',
+	                'default' => esc_html__( 'CNP', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_fiz_cnp_label]'
 	            ),
 	            array(
-	                'name'    => __( 'Placeholder', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Placeholder', 'woo-facturare' ),
 	                'type'    => 'text',
-	                'default' => 'Introduceti Codul numeric personal',
+	                'default' => esc_html__( 'Introduceti Codul numeric personal', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_fiz_cnp_placeholder]'
 	            ),
 				array(
-					'title'   => __( 'Vizibilitate', 'woo-facturare' ),
-					'desc'    => __( 'Arata acest camp pe pagina de checkout', 'woo-facturare' ),
+					'title'   => esc_html__( 'Vizibilitate', 'woo-facturare' ),
+					'desc'    => esc_html__( 'Arata acest camp pe pagina de checkout', 'woo-facturare' ),
 					'id'      => 'av_facturare[facturare_pers_fiz_cnp_vizibility]',
 					'default' => 'yes',
 					'type'    => 'checkbox',
 				),
 				array(
-					'title'   => __( 'Obligatoriu', 'woo-facturare' ),
+					'title'   => esc_html__( 'Obligatoriu', 'woo-facturare' ),
 					'desc'    => __( 'Da, campul <strong>CNP</strong> este Obligatoriu', 'woo-facturare' ),
 					'id'      => 'av_facturare[facturare_pers_fiz_cnp_required]',
 					'default' => 'yes',
 					'type'    => 'checkbox',
 				),
 				array(
-	                'name'    => __( 'Mesaj Eroare', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Mesaj Eroare', 'woo-facturare' ),
 	                'type'    => 'textarea',
-	                'default' => 'Datorita legislatiei in vigoare trebuie sa completati campul CNP',
+	                'default' => esc_html__( 'Datorita legislatiei in vigoare trebuie sa completati campul CNP', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_fiz_cnp_error]'
 	            ),
 				array(
@@ -142,15 +142,15 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 		} elseif ( 'pers-jur' === $current_section ) {
 			$settings = array(
 				array(
-					'title' => __( 'Setari Persoane Juridice', 'woo-facturare' ),
+					'title' => esc_html__( 'Setari Persoane Juridice', 'woo-facturare' ),
 					'type'  => 'title',
 					'desc'  => '',
 					'id'    => 'facturare_pers_jur_start',
 				),
 				array(
-	                'name'    => __( 'Label Persoana Juridica', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Label Persoana Juridica', 'woo-facturare' ),
 	                'type'    => 'text',
-	                'default' => 'Persoana Juridica',
+	                'default' => esc_html__( 'Persoana Juridica', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_jur_label]'
 	            ),
 		        array(
@@ -160,41 +160,41 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 
 		        // Nume Firma
 		        array(
-					'title' => __( 'Camp Nume Firma', 'woo-facturare' ),
+					'title' => esc_html__( 'Camp Nume Firma', 'woo-facturare' ),
 					'type'  => 'title',
 					'desc'  => '',
 					'id'    => 'facturare_pers_jur_company_start',
 				),
 				array(
-	                'name'    => __( 'Label', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Label', 'woo-facturare' ),
 	                'type'    => 'text',
-	                'default' => 'Nume Firma',
+	                'default' => esc_html__( 'Nume Firma', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_jur_company_label]'
 	            ),
 	            array(
-	                'name'    => __( 'Placeholder', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Placeholder', 'woo-facturare' ),
 	                'type'    => 'text',
-	                'default' => 'Introduceti numele firmei dumneavoastra',
+	                'default' => esc_html__( 'Introduceti numele firmei dumneavoastra', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_jur_company_placeholder]'
 	            ),
 				array(
-					'title'   => __( 'Vizibilitate', 'woo-facturare' ),
-					'desc'    => __( 'Arata acest camp pe pagina de checkout', 'woo-facturare' ),
+					'title'   => esc_html__( 'Vizibilitate', 'woo-facturare' ),
+					'desc'    => esc_html__( 'Arata acest camp pe pagina de checkout', 'woo-facturare' ),
 					'id'      => 'av_facturare[facturare_pers_jur_company_vizibility]',
 					'default' => 'yes',
 					'type'    => 'checkbox',
 				),
 				array(
-					'title'   => __( 'Obligatoriu', 'woo-facturare' ),
+					'title'   => esc_html__( 'Obligatoriu', 'woo-facturare' ),
 					'desc'    => __( 'Da, campul <strong>Nume Firma</strong> este Obligatoriu', 'woo-facturare' ),
 					'id'      => 'av_facturare[facturare_pers_jur_company_required]',
 					'default' => 'yes',
 					'type'    => 'checkbox',
 				),
 				array(
-	                'name'    => __( 'Mesaj Eroare', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Mesaj Eroare', 'woo-facturare' ),
 	                'type'    => 'textarea',
-	                'default' => 'Pentru a va putea emite factura avem nevoie de numele firmei dumneavoastra',
+	                'default' => esc_html__( 'Pentru a va putea emite factura avem nevoie de numele firmei dumneavoastra', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_jur_company_error]'
 	            ),
 				array(
@@ -204,41 +204,41 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 
 		        // CUI
 		        array(
-					'title' => __( 'Camp CUI', 'woo-facturare' ),
+					'title' => esc_html__( 'Camp CUI', 'woo-facturare' ),
 					'type'  => 'title',
 					'desc'  => '',
 					'id'    => 'facturare_pers_jur_cui_start',
 				),
 				array(
-	                'name'    => __( 'Label', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Label', 'woo-facturare' ),
 	                'type'    => 'text',
-	                'default' => 'CUI',
+	                'default' => esc_html__( 'CUI', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_jur_cui_label]'
 	            ),
 	            array(
 	                'name'    => __( 'Placeholder', 'woo-facturare' ),
 	                'type'    => 'text',
-	                'default' => 'Introduceti Codul Unic de Inregistrare',
+	                'default' => esc_html__( 'Introduceti Codul Unic de Inregistrare', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_jur_cui_placeholder]'
 	            ),
 				array(
-					'title'   => __( 'Vizibilitate', 'woo-facturare' ),
-					'desc'    => __( 'Arata acest camp pe pagina de checkout', 'woo-facturare' ),
+					'title'   => esc_html__( 'Vizibilitate', 'woo-facturare' ),
+					'desc'    => esc_html__( 'Arata acest camp pe pagina de checkout', 'woo-facturare' ),
 					'id'      => 'av_facturare[facturare_pers_jur_cui_vizibility]',
 					'default' => 'yes',
 					'type'    => 'checkbox',
 				),
 				array(
-					'title'   => __( 'Obligatoriu', 'woo-facturare' ),
+					'title'   => esc_html__( 'Obligatoriu', 'woo-facturare' ),
 					'desc'    => __( 'Da, campul <strong>CUI</strong> este Obligatoriu', 'woo-facturare' ),
 					'id'      => 'av_facturare[facturare_pers_jur_cui_required]',
 					'default' => 'yes',
 					'type'    => 'checkbox',
 				),
 				array(
-	                'name'    => __( 'Mesaj Eroare', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Mesaj Eroare', 'woo-facturare' ),
 	                'type'    => 'textarea',
-	                'default' => 'Pentru a va putea emite factura avem nevoie de CUI-ul firmei dumneavoastra',
+	                'default' => esc_html__( 'Pentru a va putea emite factura avem nevoie de CUI-ul firmei dumneavoastra', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_jur_cui_error]'
 	            ),
 				array(
@@ -248,41 +248,41 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 
 				// Nr. Reg. Com.
 				array(
-					'title' => __( 'Camp Nr. Reg. Com.', 'woo-facturare' ),
+					'title' => esc_html__( 'Camp Nr. Reg. Com.', 'woo-facturare' ),
 					'type'  => 'title',
 					'desc'  => '',
 					'id'    => 'facturare_pers_jur_nr_reg_com_start',
 				),
 				array(
-	                'name'    => __( 'Label', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Label', 'woo-facturare' ),
 	                'type'    => 'text',
-	                'default' => 'Nr. Reg. Com',
+	                'default' => esc_html__( 'Nr. Reg. Com', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_jur_nr_reg_com_label]'
 	            ),
 	            array(
-	                'name'    => __( 'Placeholder', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Placeholder', 'woo-facturare' ),
 	                'type'    => 'text',
 	                'default' => 'J20/20/20.02.2020',
 	                'id'      => 'av_facturare[facturare_pers_jur_nr_reg_com_placeholder]'
 	            ),
 				array(
-					'title'   => __( 'Vizibilitate', 'woo-facturare' ),
-					'desc'    => __( 'Arata acest camp pe pagina de checkout', 'woo-facturare' ),
+					'title'   => esc_html__( 'Vizibilitate', 'woo-facturare' ),
+					'desc'    => esc_html__( 'Arata acest camp pe pagina de checkout', 'woo-facturare' ),
 					'id'      => 'av_facturare[facturare_pers_jur_nr_reg_com_vizibility]',
 					'default' => 'yes',
 					'type'    => 'checkbox',
 				),
 				array(
-					'title'   => __( 'Obligatoriu', 'woo-facturare' ),
-					'desc'    => __( 'Da, campul <strong>Nr. Reg. Com</strong> este Obligatoriu', 'woo-facturare' ),
+					'title'   => esc_html__( 'Obligatoriu', 'woo-facturare' ),
+					'desc'    => esc_html__( 'Da, campul <strong>Nr. Reg. Com</strong> este Obligatoriu', 'woo-facturare' ),
 					'id'      => 'av_facturare[facturare_pers_jur_nr_reg_com_required]',
 					'default' => 'yes',
 					'type'    => 'checkbox',
 				),
 				array(
-	                'name'    => __( 'Mesaj Eroare', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Mesaj Eroare', 'woo-facturare' ),
 	                'type'    => 'textarea',
-	                'default' => 'Pentru a va putea emite factura avem nevoie de numarul de ordine in registrul comertului',
+	                'default' => esc_html__( 'Pentru a va putea emite factura avem nevoie de numarul de ordine in registrul comertului', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_jur_nr_reg_com_error]'
 	            ),
 				array(
@@ -292,41 +292,41 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 
 				// Nume Banca
 				array(
-					'title' => __( 'Camp Nume Banca', 'woo-facturare' ),
+					'title' => esc_html__( 'Camp Nume Banca', 'woo-facturare' ),
 					'type'  => 'title',
 					'desc'  => '',
 					'id'    => 'facturare_pers_jur_nume_banca_start',
 				),
 				array(
-	                'name'    => __( 'Label', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Label', 'woo-facturare' ),
 	                'type'    => 'text',
-	                'default' => 'Nume Banca',
+	                'default' => esc_html__( 'Nume Banca', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_jur_nume_banca_label]'
 	            ),
 	            array(
-	                'name'    => __( 'Placeholder', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Placeholder', 'woo-facturare' ),
 	                'type'    => 'text',
-	                'default' => 'Numele bancii cu care lucrati',
+	                'default' => esc_html__( 'Numele bancii cu care lucrati', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_jur_nume_banca_placeholder]'
 	            ),
 				array(
-					'title'   => __( 'Vizibilitate', 'woo-facturare' ),
-					'desc'    => __( 'Arata acest camp pe pagina de checkout', 'woo-facturare' ),
+					'title'   => esc_html__( 'Vizibilitate', 'woo-facturare' ),
+					'desc'    => esc_html__( 'Arata acest camp pe pagina de checkout', 'woo-facturare' ),
 					'id'      => 'av_facturare[facturare_pers_jur_nume_banca_vizibility]',
 					'default' => 'no',
 					'type'    => 'checkbox',
 				),
 				array(
-					'title'   => __( 'Obligatoriu', 'woo-facturare' ),
+					'title'   => esc_html__( 'Obligatoriu', 'woo-facturare' ),
 					'desc'    => __( 'Da, campul <strong>Nume Banca</strong> este Obligatoriu', 'woo-facturare' ),
 					'id'      => 'av_facturare[facturare_pers_jur_nume_banca_required]',
 					'default' => 'no',
 					'type'    => 'checkbox',
 				),
 				array(
-	                'name'    => __( 'Mesaj Eroare', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Mesaj Eroare', 'woo-facturare' ),
 	                'type'    => 'textarea',
-	                'default' => 'Pentru a va putea emite factura avem nevoie de numele bancii cu care lucrati',
+	                'default' => esc_html__( 'Pentru a va putea emite factura avem nevoie de numele bancii cu care lucrati', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_jur_nume_banca_error]',
 	            ),
 				array(
@@ -336,41 +336,41 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 
 				// IBAN
 				array(
-					'title' => __( 'Camp IBAN', 'woo-facturare' ),
+					'title' => esc_html__( 'Camp IBAN', 'woo-facturare' ),
 					'type'  => 'title',
 					'desc'  => '',
 					'id'    => 'facturare_pers_jur_iban_start',
 				),
 				array(
-	                'name'    => __( 'Label', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Label', 'woo-facturare' ),
 	                'type'    => 'text',
-	                'default' => 'IBAN',
+	                'default' => esc_html__( 'IBAN', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_jur_iban_label]'
 	            ),
 	            array(
-	                'name'    => __( 'Placeholder', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Placeholder', 'woo-facturare' ),
 	                'type'    => 'text',
-	                'default' => 'Numarul contului IBAN',
+	                'default' => esc_html__( 'Numarul contului IBAN', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_jur_iban_placeholder]'
 	            ),
 				array(
-					'title'   => __( 'Vizibilitate', 'woo-facturare' ),
-					'desc'    => __( 'Arata acest camp pe pagina de checkout', 'woo-facturare' ),
+					'title'   => esc_html__( 'Vizibilitate', 'woo-facturare' ),
+					'desc'    => esc_html__( 'Arata acest camp pe pagina de checkout', 'woo-facturare' ),
 					'id'      => 'av_facturare[facturare_pers_jur_iban_vizibility]',
 					'default' => 'no',
 					'type'    => 'checkbox',
 				),
 				array(
-					'title'   => __( 'Obligatoriu', 'woo-facturare' ),
-					'desc'    => __( 'Da, campul <strong>IBAN</strong> este Obligatoriu', 'woo-facturare' ),
+					'title'   => esc_html__( 'Obligatoriu', 'woo-facturare' ),
+					'desc'    => esc_html__( 'Da, campul <strong>IBAN</strong> este Obligatoriu', 'woo-facturare' ),
 					'id'      => 'av_facturare[facturare_pers_jur_iban_required]',
 					'default' => 'no',
 					'type'    => 'checkbox',
 				),
 				array(
-	                'name'    => __( 'Mesaj Eroare', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Mesaj Eroare', 'woo-facturare' ),
 	                'type'    => 'textarea',
-	                'default' => 'Pentru a va putea emite factura avem nevoie de numarul contului',
+	                'default' => esc_html__( 'Pentru a va putea emite factura avem nevoie de numarul contului', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_jur_iban_error]'
 	            ),
 				array(
@@ -383,36 +383,36 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 		} else {
 			$settings = array(
 				array(
-					'title' => __( 'Setari Generale', 'woo-facturare' ),
+					'title' => esc_html__( 'Setari Generale', 'woo-facturare' ),
 					'type'  => 'title',
 					'desc'  => '',
 					'id'    => 'facturare_general_start',
 				),
 				array(
-	                'name' => __( 'Tip', 'woo-facturare' ),
+	                'name' => esc_html__( 'Tip', 'woo-facturare' ),
 	                'type' => 'select',
 	                'options' => array(
-	                	'radio'  => 'Butoane radio',
-	                	'select' => 'Select',
+	                	'radio'  => esc_html__( 'Butoane radio', 'woo-facturare' ),
+	                	'select' => esc_html__( 'Select', 'woo-facturare' ),
 	                ),
 	                'default' => 'select',
 	                'desc' => __( '<p>Cum va fi afisata optiunea de a alaege intre persoana fizica sau juridica</p>', 'woo-facturare' ),
 	                'id'   => 'av_facturare[facturare_output]'
 	            ),
 	            array(
-	                'name' => __( 'Optiune implicita', 'woo-facturare' ),
+	                'name' => esc_html__( 'Optiune implicita', 'woo-facturare' ),
 	                'type' => 'select',
 	                'options' => array(
-	                	'pers-fiz' => 'Persoana Fizica',
-	                	'pers-jur' => 'Persoana Juridica',
+	                	'pers-fiz' => esc_html__( 'Persoana Fizica', 'woo-facturare' ),
+	                	'pers-jur' => esc_html__( 'Persoana Juridica', 'woo-facturare' ),
 	                ),
 	                'desc' => __( '<p>Optiunea care va fi selectata implicit pe pagina de checkout</p>', 'woo-facturare' ),
 	                'id'   => 'av_facturare[facturare_default]'
 	            ),
 	            array(
-	                'name'    => __( 'Label', 'woo-facturare' ),
+	                'name'    => esc_html__( 'Label', 'woo-facturare' ),
 	                'type'    => 'text',
-	                'default' => 'Tip Facturare',
+	                'default' => esc_html__( 'Tip Facturare', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_label]'
 	            ),
 	            array(

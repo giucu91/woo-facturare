@@ -1,60 +1,8 @@
 <?php
 
-/**
- * The admin-specific functionality of the plugin.
- *
- * @link       http://example.com
- * @since      1.0.0
- *
- * @package    Facturare
- * @subpackage Facturare/admin
- */
+class Woo_Facturare_Admin {
 
-/**
- * The admin-specific functionality of the plugin.
- *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the admin-specific stylesheet and JavaScript.
- *
- * @package    Facturare
- * @subpackage Facturare/admin
- * @author     Your Name <email@example.com>
- */
-class Facturare_Admin {
-
-	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
-	 */
-	private $plugin_name;
-
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
-	private $version;
-
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
-	 */
-	public function __construct( $plugin_name, $version ) {
-
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-
-		add_filter( 'plugin_action_links', array( $this, 'action_links' ), 10, 2 );
-
-	}
+	public function __construct() {}
 
 	public function setting_page_class( $settings ) {
 		$settings[] = include 'class-wc-settings-facturare.php';
@@ -119,25 +67,25 @@ class Facturare_Admin {
 		if ( 'pers-fiz' == $data['tip_facturare'] ) {
 			
 			if ( isset( $data['cnp'] ) && '' != $data['cnp'] ) {
-				$av_settings['cnp'] = $data['cnp'];
+				$av_settings['cnp'] = sanitize_text_field($data['cnp']);
 			}
 
 		}elseif ( 'pers-jur' == $data['tip_facturare'] ) {
 			
 			if ( isset( $data['cui'] ) && '' != $data['cui'] ) {
-				$av_settings['cui'] = $data['cui'];
+				$av_settings['cui'] = sanitize_text_field($data['cui']);
 			}
 
 			if ( isset( $data['nr_reg_com'] ) && '' != $data['nr_reg_com'] ) {
-				$av_settings['nr_reg_com'] = $data['nr_reg_com'];
+				$av_settings['nr_reg_com'] = sanitize_text_field($data['nr_reg_com']);
 			}
 
 			if ( isset( $data['nume_banca'] ) && '' != $data['nume_banca'] ) {
-				$av_settings['nume_banca'] = $data['nume_banca'];
+				$av_settings['nume_banca'] = sanitize_text_field($data['nume_banca']);
 			}
 
 			if ( isset( $data['iban'] ) && '' != $data['iban'] ) {
-				$av_settings['iban'] = $data['iban'];
+				$av_settings['iban'] = sanitize_text_field($data['iban']);
 			}
 
 		}
@@ -217,7 +165,7 @@ class Facturare_Admin {
 	public function action_links( $links, $file ){
 
 		if ( 'woo-facturare/facturare.php' == $file ) {
-			$links[] = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=facturare&section' ) . '">' . __( 'Setari', 'woo-facturare' ) . '</a>';
+			$links[] = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=facturare&section' ) . '">' . esc_html__( 'Setari', 'woo-facturare' ) . '</a>';
 		}
 
 		return $links;
