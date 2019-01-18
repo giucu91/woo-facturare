@@ -112,8 +112,10 @@ class Woo_Facturare_Admin {
 		);
 
 		$facturare = $order->get_meta( 'av_facturare' );
-		$tip = $facturare['tip_facturare'];
-		unset( $facturare['tip_facturare'] );
+		$tip = isset($facturare['tip_facturare']) ? $facturare['tip_facturare'] : '';
+		if ( isset( $facturare['tip_facturare'] ) ) {
+			unset( $facturare['tip_facturare'] );
+		}
 
 		if ( 'pers-fiz' == $tip && isset( $fields['company'] ) ) {
 			$fields['company'] = '';
