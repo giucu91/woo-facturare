@@ -274,7 +274,7 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 				),
 				array(
 					'title'   => esc_html__( 'Obligatoriu', 'woo-facturare' ),
-					'desc'    => esc_html__( 'Da, campul <strong>Nr. Reg. Com</strong> este Obligatoriu', 'woo-facturare' ),
+					'desc'    => __( 'Da, campul <strong>Nr. Reg. Com</strong> este Obligatoriu', 'woo-facturare' ),
 					'id'      => 'av_facturare[facturare_pers_jur_nr_reg_com_required]',
 					'default' => 'yes',
 					'type'    => 'checkbox',
@@ -362,7 +362,7 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 				),
 				array(
 					'title'   => esc_html__( 'Obligatoriu', 'woo-facturare' ),
-					'desc'    => esc_html__( 'Da, campul <strong>IBAN</strong> este Obligatoriu', 'woo-facturare' ),
+					'desc'    => __( 'Da, campul <strong>IBAN</strong> este Obligatoriu', 'woo-facturare' ),
 					'id'      => 'av_facturare[facturare_pers_jur_iban_required]',
 					'default' => 'no',
 					'type'    => 'checkbox',

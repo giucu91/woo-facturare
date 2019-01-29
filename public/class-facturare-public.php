@@ -198,8 +198,8 @@ class Woo_Facturare_Public {
 
 		if ( in_array( $key, $our_fields ) ) {
 			
-			$optional_label = '<span class="optional">(' . esc_html__( 'optional', 'woo-facturare' ) . ')</span>';
-			$required_label = '<abbr class="required" title="' . esc_attr__( 'required', 'woo-facturare' ) . '">*</abbr>';
+			$optional_label = '<span class="optional">(' . esc_html__( 'optional', 'woocommerce' ) . ')</span>';
+			$required_label = '<abbr class="required" title="' . esc_attr__( 'required', 'woocommerce' ) . '">*</abbr>';
 
 			if ( 'yes' == $args['needed_req'] ) {
 				$field = str_replace( $optional_label, $required_label, $field );
