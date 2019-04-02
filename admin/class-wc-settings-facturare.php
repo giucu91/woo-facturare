@@ -68,6 +68,12 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 		}
 	}
 
+	public function get_desc() {
+		$format = '%s <a href=mailto:contact@georgeciobanu.com>%s</a>.';
+
+		return sprintf( $format, esc_html__( 'Daca ai nevoie de ajutor ma poti contacta', 'woo-facturare' ), esc_html__( 'aici', 'woo-facturare' ) );
+	}
+
 	/**
 	 * Get settings array.
 	 *
@@ -80,8 +86,8 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 			$settings = array(
 				array(
 					'title' => esc_html__( 'Setari Persoane Fizice', 'woo-facturare' ),
+					'desc' => $this->get_desc(),
 					'type'  => 'title',
-					'desc'  => '',
 					'id'    => 'facturare_pers_fiz_start',
 				),
 				array(
@@ -144,7 +150,7 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 				array(
 					'title' => esc_html__( 'Setari Persoane Juridice', 'woo-facturare' ),
 					'type'  => 'title',
-					'desc'  => '',
+					'desc' => $this->get_desc(),
 					'id'    => 'facturare_pers_jur_start',
 				),
 				array(
@@ -385,7 +391,7 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 				array(
 					'title' => esc_html__( 'Setari Generale', 'woo-facturare' ),
 					'type'  => 'title',
-					'desc'  => '',
+					'desc'  => $this->get_desc(),
 					'id'    => 'facturare_general_start',
 				),
 				array(

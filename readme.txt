@@ -3,7 +3,7 @@ Contributors: giucu91
 Tags: woocommerce, facturare, persoana fizica, persoana juridica
 Requires at least: 3.5
 Tested up to: 5.0
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +30,9 @@ Please see [Installing Plugins](http://codex.wordpress.org/Managing_Plugins#Inst
 After activation, go to *WooCommerce > Settings > Facturare*
 
 == Changelog ==
+
+** 1.0.3 **
+- Fixed undefined index.
 
 ** 1.0.2 **
 - Fixed optional/required in translated WooCommerce.
