@@ -42,6 +42,7 @@ class Woo_Facturare {
 		$facturare_admin = new Woo_Facturare_Admin( $this->plugin_name, $this->version );
 
 		$this->loader->add_filter( 'woocommerce_get_settings_pages', $facturare_admin, 'setting_page_class' );
+		$this->loader->add_filter( 'wc_admin_page_tab_sections', $facturare_admin, 'register_wc_admin_tabs' );
 
 		// Edit Plugin Links
 		$this->loader->add_filter( 'plugin_action_links', $facturare_admin, 'action_links', 10, 2 );
@@ -57,6 +58,9 @@ class Woo_Facturare {
 		$this->loader->add_filter( 'woocommerce_my_account_my_address_formatted_address', $facturare_admin, 'myacc_filter_billing_fields', 90, 3 );
 		$this->loader->add_filter( 'woocommerce_formatted_address_replacements', $facturare_admin, 'extra_fields_replacements', 90, 2 );
 		$this->loader->add_filter( 'woocommerce_localisation_address_formats', $facturare_admin, 'localisation_address_formats', 90 );
+
+		// WC Admin
+		$this->loader->add_action( 'admin_menu', $facturare_admin, 'wc_admin_connect_page', 15 );
 
 	}
 

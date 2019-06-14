@@ -6,6 +6,59 @@ class Woo_Facturare_Admin {
 
 	public function setting_page_class( $settings ) {
 		$settings[] = include 'class-wc-settings-facturare.php';
+		return $settings;
+	}
+
+	public function register_wc_admin_tabs( $tabs_with_sections ){
+		$tabs_with_sections['facturare'] = array( '', 'pers-fiz', 'pers-jur' );
+		return $tabs_with_sections;
+	}
+
+	public function wc_admin_connect_page(){
+
+		if ( ! function_exists( 'wc_admin_connect_page' ) ) {
+			return;
+		}
+
+		$admin_page_base    = 'admin.php';
+
+		wc_admin_connect_page(
+			array(
+				'id'        => 'woocommerce-settings-facturare',
+				'parent'    => 'woocommerce-settings',
+				'screen_id' => 'woocommerce_page_wc-settings-facturare',
+				'title'     => array(
+					__( 'Facturare', 'woocommerce-admin' ),
+					__( 'General', 'woocommerce-admin' ),
+				),
+				'path'      => add_query_arg(
+					array(
+						'page' => 'wc-settings',
+						'tab'  => 'facturare',
+					),
+					$admin_page_base
+				),
+			)
+		);
+
+		wc_admin_connect_page(
+			array(
+				'id'        => 'woocommerce-settings-facturare-pers-fiz',
+				'parent'    => 'woocommerce-settings-facturare',
+				'screen_id' => 'woocommerce_page_wc-settings-facturare-pers-fiz',
+				'title'     => __( 'Persoana Fizica', 'woocommerce-admin' ),
+			)
+		);
+
+		wc_admin_connect_page(
+			array(
+				'id'        => 'woocommerce-settings-facturare-pers-jur',
+				'parent'    => 'woocommerce-settings-facturare',
+				'screen_id' => 'woocommerce_page_wc-settings-facturare-pers-jur',
+				'title'     => __( 'Persoana Juridica', 'woocommerce-admin' ),
+			)
+		);
+
 	}
 
 	/**
@@ -148,11 +201,11 @@ class Woo_Facturare_Admin {
 	*/
 	public function extra_fields_replacements( $replacements, $args ) {
 
-		$replacements['{cnp}']        = $args['cnp'];
-		$replacements['{cui}']        = $args['cui'];
-		$replacements['{nr_reg_com}'] = $args['nr_reg_com'];
-		$replacements['{nume_banca}'] = $args['nume_banca'];
-		$replacements['{iban}']       = $args['iban'];
+		$replacements['{cnp}']        = isset( $args['cnp'] ) ? $args['cnp'] : '';
+		$replacements['{cui}']        = isset( $args['cui'] ) ? $args['cui'] : '';
+		$replacements['{nr_reg_com}'] = isset( $args['nr_reg_com'] ) ? $args['nr_reg_com'] : '';
+		$replacements['{nume_banca}'] = isset( $args['nume_banca'] ) ? $args['nume_banca'] : '';
+		$replacements['{iban}']       = isset( $args['iban'] ) ? $args['iban'] : '';
 
 		return $replacements;
 
