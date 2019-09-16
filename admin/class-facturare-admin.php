@@ -28,8 +28,8 @@ class Woo_Facturare_Admin {
 				'parent'    => 'woocommerce-settings',
 				'screen_id' => 'woocommerce_page_wc-settings-facturare',
 				'title'     => array(
-					__( 'Facturare', 'woocommerce-admin' ),
-					__( 'General', 'woocommerce-admin' ),
+					__( 'Facturare', 'woo-facturare' ),
+					__( 'General', 'woo-facturare' ),
 				),
 				'path'      => add_query_arg(
 					array(
@@ -46,7 +46,7 @@ class Woo_Facturare_Admin {
 				'id'        => 'woocommerce-settings-facturare-pers-fiz',
 				'parent'    => 'woocommerce-settings-facturare',
 				'screen_id' => 'woocommerce_page_wc-settings-facturare-pers-fiz',
-				'title'     => __( 'Persoana Fizica', 'woocommerce-admin' ),
+				'title'     => __( 'Persoana Fizica', 'woo-facturare' ),
 			)
 		);
 
@@ -55,7 +55,7 @@ class Woo_Facturare_Admin {
 				'id'        => 'woocommerce-settings-facturare-pers-jur',
 				'parent'    => 'woocommerce-settings-facturare',
 				'screen_id' => 'woocommerce_page_wc-settings-facturare-pers-jur',
-				'title'     => __( 'Persoana Juridica', 'woocommerce-admin' ),
+				'title'     => __( 'Persoana Juridica', 'woo-facturare' ),
 			)
 		);
 
@@ -224,6 +224,53 @@ class Woo_Facturare_Admin {
 		}
 
 		return $links;
+	}
+
+	public function settings_links( $links ){
+
+		if ( is_array( $links ) ) {
+            $links['facturare-settings'] = sprintf('<a href="%s">%s</a>', admin_url( 'admin.php?page=wc-settings&tab=facturare' ), __( 'Settings', 'woo-facturare' ) );
+        }
+
+		return $links;
+
+	}
+
+	public function start_advertise(){
+		echo '<style>';
+		echo '.woofacturare-feedback-box {width: 50%;background: #fff;padding: 10px;box-sizing: border-box;border: 1px solid #ddd;margin-right: 10px;}';
+		echo '.woofacturare-contact-box {width: 30%;background: #fff;padding: 10px;box-sizing: border-box;border: 1px solid #ddd;}';
+		echo '.woofacturare-advertise{display:flex;}';
+		echo '</style>';
+		echo '<div class="woofacturare-advertise">';
+	}
+
+	public function stop_advertise(){
+		echo '</div>';
+	}
+
+	public function feedback_box(){
+
+		$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : '';
+
+		if ( 'facturare' != $tab ) {
+			return;
+		}
+
+		include WOOFACTURARE_PATH . 'admin/views/feedback-box.php';
+
+	}
+
+	public function contact_box(){
+
+		$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : '';
+
+		if ( 'facturare' != $tab ) {
+			return;
+		}
+
+		include WOOFACTURARE_PATH . 'admin/views/contact-box.php';
+
 	}
 
 }

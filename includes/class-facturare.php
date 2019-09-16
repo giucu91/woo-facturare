@@ -62,6 +62,15 @@ class Woo_Facturare {
 		// WC Admin
 		$this->loader->add_action( 'admin_menu', $facturare_admin, 'wc_admin_connect_page', 15 );
 
+		// Settings link
+		$this->loader->add_action( 'plugin_action_links_' . WOOFACTURARE_SLUG, $facturare_admin, 'settings_links', 15 );
+
+		// Add extra div
+		$this->loader->add_action( 'woocommerce_page_wc-settings', $facturare_admin, 'start_advertise', 99 );
+		$this->loader->add_action( 'woocommerce_page_wc-settings', $facturare_admin, 'feedback_box', 99 );
+		$this->loader->add_action( 'woocommerce_page_wc-settings', $facturare_admin, 'contact_box', 99 );
+		$this->loader->add_action( 'woocommerce_page_wc-settings', $facturare_admin, 'stop_advertise', 99 );
+
 	}
 
 	private function define_public_hooks() {
