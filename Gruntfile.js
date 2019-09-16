@@ -14,7 +14,7 @@ module.exports = function( grunt ) {
 		checktextdomain: {
 			standard: {
 				options: {
-					text_domain: [ 'woo-facturare' ], //Specify allowed domain(s)
+					text_domain: [ 'woo-facturare', 'woocommerce' ], //Specify allowed domain(s)
 					create_report_file: 'true',
 					keywords: [ //List keyword specifications
 						'__:1,2d',
