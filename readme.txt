@@ -31,6 +31,10 @@ After activation, go to *WooCommerce > Settings > Facturare*
 
 == Changelog ==
 
+** 1.0.5 **
+- Added feedback form
+- Fixed incompatibility with CartFlow
+
 ** 1.0.4 **
 - Added return in 'woocommerce_get_settings_pages' filter.
 - Added compatibility with WooCommerce Admin
