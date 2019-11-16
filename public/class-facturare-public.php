@@ -68,8 +68,8 @@ class Woo_Facturare_Public {
 		);
 
 		// Extra Fields
-		$company = $fields['billing']['billing_company'];
-		unset( $fields['billing']['billing_company'] );
+		$company = $fields['billing_company'];
+		unset( $fields['billing_company'] );
 		$extra_fields = array();
 
 		// CNP Field
@@ -177,7 +177,7 @@ class Woo_Facturare_Public {
 			}
 		}
 
-		foreach ( $fields['billing'] as $key => $field ) {
+		foreach ( $fields as $key => $field ) {
 			
 			$ordered_fields[ $key ] = $field;
 
@@ -187,7 +187,7 @@ class Woo_Facturare_Public {
 
 		}
 
-		$fields['billing'] = $ordered_fields;
+		$fields = $ordered_fields;
 
 		return $fields;
 	}

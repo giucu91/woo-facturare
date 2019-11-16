@@ -81,7 +81,8 @@ class Woo_Facturare {
 		$this->loader->add_action( 'wp_footer', $plugin_public, 'add_js_to_footer', 99 );
 
 		// Change checkout fields
-		$this->loader->add_filter( 'woocommerce_checkout_fields', $plugin_public, 'override_checkout_fields', 99 );
+		// $this->loader->add_filter( 'woocommerce_checkout_fields', $plugin_public, 'override_checkout_fields', 99 );
+		$this->loader->add_filter( 'woocommerce_billing_fields', $plugin_public, 'override_checkout_fields', 30 );
 		$this->loader->add_filter( 'woocommerce_form_field', $plugin_public, 'override_field_html', 20, 3 );
 
 		// Validate checkout fields
