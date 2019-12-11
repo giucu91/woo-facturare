@@ -2,6 +2,8 @@
 
 class Woo_Facturare_Admin {
 
+	private $fields =array() ;
+
 	public function __construct() {}
 
 	public function setting_page_class( $settings ) {
