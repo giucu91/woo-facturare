@@ -2,8 +2,8 @@
 Contributors: giucu91
 Tags: woocommerce, facturare, persoana fizica, persoana juridica
 Requires at least: 3.5
-Tested up to: 5.2
-Stable tag: 1.0.5
+Tested up to: 5.3
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,17 +11,18 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Datorită legislației în vigoare din România fiecare magazin online trebuie să aibă anumite informații pe factură. Acest modul vine în ajutorul dumneavoastră pentru a adăuga respectivele informații mai ușor.
 
-= Ușor de folosit =
+Pentru persoanele fizice poti aduaga :
+	- CNP
 
-Toate setările sunt create cu gândul la utilizator și sunt foarte bine explicate. Poți folosi modulul chiar și cu setările implicite.
+Pentru persoanele juridici poti adauga :
+	- CUI
+	- Nr. Registru Comertului
+	- Nume Banca
+	- IBAN
 
-= Solutie Completa =
+Acest plugin nu emite facturi, el doar adauga campurile necesare unei facturi pe pagina de checkout.
 
-Modulul a fost creat pentru a se integra ușor cu WooCommerce, cu emailurile trimise clienților cât și cu pluginuri de generare de facturi.
-
-= Customizabil =
-
-Ficare câmp poate fi modificat, ce texte să apară, dacă să fie obligatoriu sau nu, chiar dacă să apară sau nu.
+Pentru mai multe informatii vizitati [Modula Facturare](http://georgeciobanu.com/facturare/)
 
 == Installation ==
 
@@ -29,7 +30,23 @@ Please see [Installing Plugins](http://codex.wordpress.org/Managing_Plugins#Inst
 
 After activation, go to *WooCommerce > Settings > Facturare*
 
+== Frequently Asked Questions ==
+
+= Cum iau campurile din baza de date ? =
+
+Pentru a optimiza baza de date, campurile adaugate de acest plugin sunt salvate doar intr-un singur rand din baza de date in loc de 5. In tabela wp_postmeta, avand key-ul 'av_facturare'. Datorita acestui fapt nu este la fel de usor de a prelua din baza de date informatii si am facut urmatoarele key-uri, care nu se gasesc in baza de date, dar o sa va returneze valoarea dorita :
+
+`$cnp = get_post_meta( $order_id, '_av_facturare_cnp', true );`
+`$nr_reg_com = get_post_meta( $order_id, '_av_facturare_nr_reg_com', true );`
+`$cui = get_post_meta( $order_id, '_av_facturare_cui', true );`
+`$nume_banca = get_post_meta( $order_id, '_av_facturare_nume_banca', true );`
+`$iban = get_post_meta( $order_id, '_av_facturare_iban', true );`
+
 == Changelog ==
+
+** 1.0.6 **
+- Integrated with checkout fields editor plugins ( Checkout Field Editor for WooCommerce / Flexible Checkout Fields )
+- Added function to get our info from db.
 
 ** 1.0.5 **
 - Added feedback form

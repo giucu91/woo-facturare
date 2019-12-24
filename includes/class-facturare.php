@@ -27,6 +27,7 @@ class Woo_Facturare {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-facturare-loader.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-facturare-admin.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-facturare-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-facturare-options-helper.php';
 		$this->loader = new Woo_Facturare_Loader();
 
 	}
@@ -81,7 +82,6 @@ class Woo_Facturare {
 		$this->loader->add_action( 'wp_footer', $plugin_public, 'add_js_to_footer', 99 );
 
 		// Change checkout fields
-		// $this->loader->add_filter( 'woocommerce_checkout_fields', $plugin_public, 'override_checkout_fields', 99 );
 		$this->loader->add_filter( 'woocommerce_billing_fields', $plugin_public, 'override_checkout_fields', 30 );
 		$this->loader->add_filter( 'woocommerce_form_field', $plugin_public, 'override_field_html', 20, 3 );
 
@@ -92,6 +92,9 @@ class Woo_Facturare {
 		$this->loader->add_filter( 'woocommerce_address_to_edit', $plugin_public, 'add_profile_fields', 90, 2 );
 		// Save fields to profile
 		$this->loader->add_filter( 'woocommerce_customer_save_address', $plugin_public, 'save_profile_fields', 90, 2 );
+
+		// Get info from db
+		$this->loader->add_filter( 'get_post_metadata', $this, 'get_order_meta', 100, 4 );
 
 	}
 
@@ -107,6 +110,37 @@ class Woo_Facturare {
 			dirname( plugin_basename( __FILE__ ) ) . '/languages/'
 		);
 
+	}
+
+	public function get_order_meta( $metadata, $object_id, $meta_key, $single ){
+		$options_helper = Facturare_Options_Helper::get_instance();
+		$keys = $options_helper->get_keys();
+
+		if ( in_array( $meta_key, $keys ) ) {
+
+			if ( '_av_facturare_cnp' == $meta_key ) {
+				return $options_helper->get_cnp( $object_id );
+			}
+
+			if ( '_av_facturare_nr_reg_com' == $meta_key ) {
+				return $options_helper->get_nr_reg_com( $object_id );
+			}
+
+			if ( '_av_facturare_cui' == $meta_key ) {
+				return $options_helper->get_cui( $object_id );
+			}
+
+			if ( '_av_facturare_nume_banca' == $meta_key ) {
+				return $options_helper->get_nume_banca( $object_id );
+			}
+
+			if ( '_av_facturare_iban' == $meta_key ) {
+				return $options_helper->get_iban( $object_id );
+			}
+
+		}
+
+		return $metadata;
 	}
 
 }
