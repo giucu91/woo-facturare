@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Facturare - Persoana Fizica sau Juridica package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Facturare - Persoana Fizica sau Juridica 1.0.5\n"
+"Project-Id-Version: Facturare - Persoana Fizica sau Juridica 1.0.6\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/facturare-persoana-fizica-sau-juridica\n"
-"POT-Creation-Date: 2019-11-16 17:47:13+00:00\n"
+"POT-Creation-Date: 2019-12-31 16:51:31+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,33 +25,33 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: admin/class-facturare-admin.php:31 admin/class-wc-settings-facturare.php:27
+#: admin/class-facturare-admin.php:37 admin/class-wc-settings-facturare.php:27
 msgid "Facturare"
 msgstr ""
 
-#: admin/class-facturare-admin.php:32 admin/class-wc-settings-facturare.php:39
+#: admin/class-facturare-admin.php:38 admin/class-wc-settings-facturare.php:39
 msgid "General"
 msgstr ""
 
-#: admin/class-facturare-admin.php:49 admin/class-wc-settings-facturare.php:40
+#: admin/class-facturare-admin.php:55 admin/class-wc-settings-facturare.php:40
 #: admin/class-wc-settings-facturare.php:90
 #: admin/class-wc-settings-facturare.php:404
 #: public/class-facturare-public.php:9
 msgid "Persoana Fizica"
 msgstr ""
 
-#: admin/class-facturare-admin.php:58 admin/class-wc-settings-facturare.php:41
+#: admin/class-facturare-admin.php:64 admin/class-wc-settings-facturare.php:41
 #: admin/class-wc-settings-facturare.php:152
 #: admin/class-wc-settings-facturare.php:405
 #: public/class-facturare-public.php:15
 msgid "Persoana Juridica"
 msgstr ""
 
-#: admin/class-facturare-admin.php:223
+#: admin/class-facturare-admin.php:229
 msgid "Setari"
 msgstr ""
 
-#: admin/class-facturare-admin.php:232
+#: admin/class-facturare-admin.php:238
 msgid "Settings"
 msgstr ""
 

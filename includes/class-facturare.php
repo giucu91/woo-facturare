@@ -26,6 +26,7 @@ class Woo_Facturare {
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-facturare-loader.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-facturare-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-facturare-review.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-facturare-public.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-facturare-options-helper.php';
 		$this->loader = new Woo_Facturare_Loader();
@@ -39,6 +40,9 @@ class Woo_Facturare {
 	}
 
 	private function define_admin_hooks() {
+
+		// Facturare Review
+		new GC_Facturare_Review();
 
 		$facturare_admin = new Woo_Facturare_Admin( $this->plugin_name, $this->version );
 

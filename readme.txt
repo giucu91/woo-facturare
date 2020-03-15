@@ -9,12 +9,12 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-Datorită legislației în vigoare din România fiecare magazin online trebuie să aibă anumite informații pe factură. Acest modul vine în ajutorul dumneavoastră pentru a adăuga respectivele informații mai ușor.
+Datorită legislației în vigoare din România fiecare magazin online trebuie să aibă anumite informații pe factură. Acest modul vine în ajutorul tau si te ajuta sa adaugi respectivele informații mai ușor.
 
-Pentru persoanele fizice poti aduaga :
+Pentru persoanele fizice poti aduaga:
 	- CNP
 
-Pentru persoanele juridici poti adauga :
+Pentru persoanele juridice poti adauga:
 	- CUI
 	- Nr. Registru Comertului
 	- Nume Banca
@@ -22,19 +22,19 @@ Pentru persoanele juridici poti adauga :
 
 Acest plugin nu emite facturi, el doar adauga campurile necesare unei facturi pe pagina de checkout.
 
-Pentru mai multe informatii vizitati [Modula Facturare](http://georgeciobanu.com/facturare/)
+Pentru mai multe informatii vizitati [Modul Facturare](http://georgeciobanu.com/facturare/)
 
 == Installation ==
 
 Please see [Installing Plugins](http://codex.wordpress.org/Managing_Plugins#Installing_Plugins) in the WordPress Codex.
 
-After activation, go to *WooCommerce > Settings > Facturare*
+Dupa activare, du-te la *WooCommerce > Settings > Facturare*
 
 == Frequently Asked Questions ==
 
 = Cum iau campurile din baza de date ? =
 
-Pentru a optimiza baza de date, campurile adaugate de acest plugin sunt salvate doar intr-un singur rand din baza de date in loc de 5. In tabela wp_postmeta, avand key-ul 'av_facturare'. Datorita acestui fapt nu este la fel de usor de a prelua din baza de date informatii si am facut urmatoarele key-uri, care nu se gasesc in baza de date, dar o sa va returneze valoarea dorita :
+Pentru a optimiza baza de date, campurile adaugate de acest plugin sunt salvate doar intr-un singur rand din baza de date in loc de 5. In tabela wp_postmeta, avand key-ul 'av_facturare'. Din cauza asta nu este usoara preluarea din baza de date informatii, asa ca am facut urmatoarele key-uri, care nu se gasesc in baza de date, dar o sa va returneze valoarea dorita:
 
 `$cnp = get_post_meta( $order_id, '_av_facturare_cnp', true );`
 `$nr_reg_com = get_post_meta( $order_id, '_av_facturare_nr_reg_com', true );`

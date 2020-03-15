@@ -6,6 +6,10 @@ class Woo_Facturare_Admin {
 
 	public function __construct() {}
 
+	public function init(){
+		new GC_Facturare_Review();
+	}
+
 	public function setting_page_class( $settings ) {
 		$settings[] = include 'class-wc-settings-facturare.php';
 		return $settings;
