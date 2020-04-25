@@ -214,7 +214,7 @@ class Woo_Facturare_Public {
 	public function hide_fields() {
 
 		if ( function_exists( 'is_checkout' ) && is_checkout() ) {
-			echo '<style>.av-hide,.wcf-embed-checkout-form .woocommerce form .form-row.av-hide{display:none}</style>';
+			echo '<style>.woocommerce .woocommerce-billing-fields .av-hide,.wcf-embed-checkout-form .woocommerce form .form-row.av-hide{display:none}</style>';
 		}
 
 	}

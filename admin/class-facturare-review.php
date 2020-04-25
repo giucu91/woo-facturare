@@ -10,7 +10,7 @@ class GC_Facturare_Review {
 	function __construct() {
 
 		$this->messages = array(
-			'notice'  => "Salut!<br> Ma bucur ca folosesti pluginul de facturare de cateva zile - sper ca iti place si iti e folositor. Daca chiar iti este de ajutor o sa te rog sa ii lasi un review. Asa vor afla mai multi oameni de el si poate le va fi folositor si lor.<br><br> Multumesc,<br>George",
+			'notice'  => "Salut! Mă bucur că folosești pluginul de facturare de câteva zile - sper că iți place și iți este folositor. Dacă chiar iți este de ajutor o să te rog să îi lași un review. Așa vor afla mai mulți oameni de el și poate le va fi folositor și lor.<br><br>Mulțumesc,<br>George",
 			'rate'    => 'Scrie un review',
 			'rated'   => 'Adu-mi aminte mai tarziu',
 			'no_rate' => 'Nu vreau.',
@@ -33,7 +33,7 @@ class GC_Facturare_Review {
 
 		if ( $this->check() ) {
 			add_action( 'admin_notices', array( $this, 'five_star_wp_rate_notice' ) );
-			add_action( 'wp_ajax_epsilon_review', array( $this, 'ajax' ) );
+			add_action( 'wp_ajax_woo_facturare_review', array( $this, 'ajax' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 			add_action( 'admin_print_footer_scripts', array( $this, 'ajax_script' ) );
 		}
@@ -70,14 +70,14 @@ class GC_Facturare_Review {
 		$url = sprintf( $this->link, $this->slug );
 
 		?>
-		<div id="<?php echo esc_attr($this->slug) ?>-epsilon-review-notice" class="notice notice-success is-dismissible" style="margin-top:30px;">
+		<div id="<?php echo esc_attr($this->slug) ?>-epsilon-review-notice" class="notice notice-success" style="margin-top:30px;">
 			<p><?php echo sprintf( wp_kses_post( $this->messages['notice'] ), $this->value ) ; ?></p>
 			<p class="actions">
-				<a id="epsilon-rate" href="<?php echo esc_url( $url ) ?>" target="_blank" class="button button-primary epsilon-review-button">
+				<a id="woo-facturare-rate" href="<?php echo esc_url( $url ) ?>" target="_blank" class="button button-primary epsilon-review-button">
 					<?php echo esc_html( $this->messages['rate'] ); ?>
 				</a>
-				<a id="epsilon-later" href="#" style="margin-left:10px" class="epsilon-review-button"><?php echo esc_html( $this->messages['rated'] ); ?></a>
-				<a id="epsilon-no-rate" href="#" style="margin-left:10px" class="epsilon-review-button"><?php echo esc_html( $this->messages['no_rate'] ); ?></a>
+				<a id="woo-facturare-later" href="#" style="margin-left:10px" class="epsilon-review-button"><?php echo esc_html( $this->messages['rated'] ); ?></a>
+				<a id="woo-facturare-no-rate" href="#" style="margin-left:10px" class="epsilon-review-button"><?php echo esc_html( $this->messages['no_rate'] ); ?></a>
 			</p>
 		</div>
 		<?php
@@ -85,7 +85,7 @@ class GC_Facturare_Review {
 
 	public function ajax() {
 
-		check_ajax_referer( 'epsilon-review', 'security' );
+		check_ajax_referer( 'woo-facturare-review', 'security' );
 
 		if ( ! isset( $_POST['check'] ) ) {
 			wp_die( 'ok' );
@@ -93,11 +93,11 @@ class GC_Facturare_Review {
 
 		$time = get_option( 'facturare-rate-time' );
 
-		if ( 'epsilon-rate' == $_POST['check'] ) {
+		if ( 'woo-facturare-rate' == $_POST['check'] ) {
 			$time = time() + YEAR_IN_SECONDS * 5;
-		}elseif ( 'epsilon-later' == $_POST['check'] ) {
+		}elseif ( 'woo-facturare-later' == $_POST['check'] ) {
 			$time = time() + WEEK_IN_SECONDS;
-		}elseif ( 'epsilon-no-rate' == $_POST['check'] ) {
+		}elseif ( 'woo-facturare-no-rate' == $_POST['check'] ) {
 			$time = time() + YEAR_IN_SECONDS * 5;
 		}
 
@@ -112,7 +112,7 @@ class GC_Facturare_Review {
 
 	public function ajax_script() {
 
-		$ajax_nonce = wp_create_nonce( "epsilon-review" );
+		$ajax_nonce = wp_create_nonce( "woo-facturare-review" );
 
 		?>
 
@@ -126,7 +126,7 @@ class GC_Facturare_Review {
 					// evt.preventDefault();
 
 					var data = {
-						action: 'epsilon_review',
+						action: 'woo_facturare_review',
 						security: '<?php echo $ajax_nonce; ?>',
 						check: id
 					};

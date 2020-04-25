@@ -76,6 +76,10 @@ class Woo_Facturare {
 		$this->loader->add_action( 'woocommerce_page_wc-settings', $facturare_admin, 'contact_box', 99 );
 		$this->loader->add_action( 'woocommerce_page_wc-settings', $facturare_admin, 'stop_advertise', 99 );
 
+		// Order Edit view
+		// $this->loader->add_action( 'woocommerce_admin_billing_fields', $facturare_admin, 'admin_billing_fields' );
+
+
 	}
 
 	private function define_public_hooks() {
@@ -122,23 +126,23 @@ class Woo_Facturare {
 
 		if ( in_array( $meta_key, $keys ) ) {
 
-			if ( '_av_facturare_cnp' == $meta_key ) {
+			if ( '_billing_facturare_cnp' == $meta_key ) {
 				return $options_helper->get_cnp( $object_id );
 			}
 
-			if ( '_av_facturare_nr_reg_com' == $meta_key ) {
+			if ( '_billing_facturare_nr_reg_com' == $meta_key ) {
 				return $options_helper->get_nr_reg_com( $object_id );
 			}
 
-			if ( '_av_facturare_cui' == $meta_key ) {
+			if ( '_billing_facturare_cui' == $meta_key ) {
 				return $options_helper->get_cui( $object_id );
 			}
 
-			if ( '_av_facturare_nume_banca' == $meta_key ) {
+			if ( '_billing_facturare_nume_banca' == $meta_key ) {
 				return $options_helper->get_nume_banca( $object_id );
 			}
 
-			if ( '_av_facturare_iban' == $meta_key ) {
+			if ( '_billing_facturare_iban' == $meta_key ) {
 				return $options_helper->get_iban( $object_id );
 			}
 

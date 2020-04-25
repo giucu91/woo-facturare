@@ -2,7 +2,7 @@
 Contributors: giucu91
 Tags: woocommerce, facturare, persoana fizica, persoana juridica
 Requires at least: 3.5
-Tested up to: 5.3
+Tested up to: 5.4
 Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -36,11 +36,17 @@ Dupa activare, du-te la *WooCommerce > Settings > Facturare*
 
 Pentru a optimiza baza de date, campurile adaugate de acest plugin sunt salvate doar intr-un singur rand din baza de date in loc de 5. In tabela wp_postmeta, avand key-ul 'av_facturare'. Din cauza asta nu este usoara preluarea din baza de date informatii, asa ca am facut urmatoarele key-uri, care nu se gasesc in baza de date, dar o sa va returneze valoarea dorita:
 
-`$cnp = get_post_meta( $order_id, '_av_facturare_cnp', true );`
-`$nr_reg_com = get_post_meta( $order_id, '_av_facturare_nr_reg_com', true );`
-`$cui = get_post_meta( $order_id, '_av_facturare_cui', true );`
-`$nume_banca = get_post_meta( $order_id, '_av_facturare_nume_banca', true );`
-`$iban = get_post_meta( $order_id, '_av_facturare_iban', true );`
+`$cnp = get_post_meta( $order_id, '_billing_facturare_cnp', true );`
+`$nr_reg_com = get_post_meta( $order_id, '_billing_facturare_nr_reg_com', true );`
+`$cui = get_post_meta( $order_id, '_billing_facturare_cui', true );`
+`$nume_banca = get_post_meta( $order_id, '_billing_facturare_nume_banca', true );`
+`$iban = get_post_meta( $order_id, '_billing_facturare_iban', true );`
+
+== Screenshots ==
+
+1. Setări Generale
+2. Setări Persoane Fizice
+3. Setări Persoane Juridice
 
 == Changelog ==
 

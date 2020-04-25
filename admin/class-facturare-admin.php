@@ -246,7 +246,7 @@ class Woo_Facturare_Admin {
 		echo '<style>';
 		echo '.woofacturare-feedback-box {width: 50%;background: #fff;padding: 10px;box-sizing: border-box;border: 1px solid #ddd;margin-right: 10px;}';
 		echo '.woofacturare-contact-box {width: 30%;background: #fff;padding: 10px;box-sizing: border-box;border: 1px solid #ddd;}';
-		echo '.woofacturare-advertise{display:flex;}';
+		echo '.woofacturare-advertise{display:flex;padding: 20px 20px 0;}';
 		echo '</style>';
 		echo '<div class="woofacturare-advertise">';
 	}
@@ -276,6 +276,35 @@ class Woo_Facturare_Admin {
 		}
 
 		include WOOFACTURARE_PATH . 'admin/views/contact-box.php';
+
+	}
+
+	public function admin_billing_fields( $billing_fields ){
+
+		$extra_fields = array(
+			'facturare_cnp'   => array(
+				'label' => __( 'CNP', 'woo-facturare' ),
+				'show'  => false,
+			),
+			'facturare_nr_reg_com'   => array(
+				'label' => __( 'Nr. Reg. Com.', 'woo-facturare' ),
+				'show'  => false,
+			),
+			'facturare_cui'   => array(
+				'label' => __( 'CUI', 'woo-facturare' ),
+				'show'  => false,
+			),
+			'facturare_nume_banca'   => array(
+				'label' => __( 'Nume banca', 'woo-facturare' ),
+				'show'  => false,
+			),
+			'facturare_iban'   => array(
+				'label' => __( 'IBAN', 'woo-facturare' ),
+				'show'  => false,
+			),
+		);
+
+		return array_merge( $billing_fields, $extra_fields );
 
 	}
 
