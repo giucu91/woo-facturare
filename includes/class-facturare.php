@@ -79,6 +79,9 @@ class Woo_Facturare {
 		// Order Edit view
 		// $this->loader->add_action( 'woocommerce_admin_billing_fields', $facturare_admin, 'admin_billing_fields' );
 
+		// WooCommerce PDF Invoice - https://codecanyon.net/item/woocommerce-pdf-invoice/5951088
+		$this->loader->add_filter( 'woo_pdf_macros', $facturare_admin, 'pdf_macros', 10, 2 );
+
 
 	}
 
@@ -103,6 +106,9 @@ class Woo_Facturare {
 
 		// Get info from db
 		$this->loader->add_filter( 'get_post_metadata', $this, 'get_order_meta', 100, 4 );
+
+		// Woo Smartbill
+		$this->loader->add_filter( 'woo_smartbill_data', $this, 'filter_smartbill_data', 10, 2 );
 
 	}
 
@@ -149,6 +155,38 @@ class Woo_Facturare {
 		}
 
 		return $metadata;
+	}
+
+	public function filter_smartbill_data( $data, $order_id ){
+		$options_helper = Facturare_Options_Helper::get_instance();
+
+		if ( isset( $data['client'] ) ) {
+			$cui = $options_helper->get_cui( $order_id );
+
+			if ( $cui ) {
+				$order = new WC_Order($order_id);
+
+				$client = array(
+					"name"       => $order->get_billing_company(),
+					"vatCode"    => $cui,
+					"regCom"     => $options_helper->get_nr_reg_com( $order_id ),
+					"address"    => $data['client']['address'],
+					"isTaxPayer" => ANAF_API::is_tax_payer( $cui ),
+					"city"       => $data['client']['city'],
+					"county"     => $data['client']['county'],
+					"country"    => $data['client']['country'],
+					"saveToDb"   => $data['client']['saveToDb'],
+					"email"      => $data['client']['email'],
+				);
+
+				$data['client'] = $client;
+
+			}
+
+		}
+
+		return $data;
+
 	}
 
 }

@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Facturare - Persoana Fizica sau Juridica package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Facturare - Persoana Fizica sau Juridica 1.0.6\n"
+"Project-Id-Version: Facturare - Persoana Fizica sau Juridica 1.0.9\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/facturare-persoana-fizica-sau-juridica\n"
-"POT-Creation-Date: 2020-04-25 00:16:02+00:00\n"
+"POT-Creation-Date: 2020-07-05 20:12:56+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -307,11 +307,11 @@ msgstr ""
 msgid "Tip Facturare"
 msgstr ""
 
-#: public/class-facturare-public.php:201
+#: public/class-facturare-public.php:205
 msgid "optional"
 msgstr ""
 
-#: public/class-facturare-public.php:202
+#: public/class-facturare-public.php:206
 msgid "required"
 msgstr ""
 

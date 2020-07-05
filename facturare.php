@@ -4,7 +4,7 @@
  * Plugin Name:       Facturare - Persoana Fizica sau Juridica
  * Plugin URI:        https://facturare.georgeciobanu.com
  * Description:       Adaugă câmpurile necesare facturării persoanelor fizice sau juridice conform legislației din Romania în vigoare.
- * Version:           1.0.6
+ * Version:           1.0.8
  * Author:            George Ciobanu
  * Text Domain:       woo-facturare
  * Domain Path:       /languages
@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'WOOFACTURARE_VERSION', '1.0.6' );
+define( 'WOOFACTURARE_VERSION', '1.0.8' );
 define( 'WOOFACTURARE_SLUG', plugin_basename( __FILE__ ) );
 define( 'WOOFACTURARE_PATH', plugin_dir_path( __FILE__ ) );
 

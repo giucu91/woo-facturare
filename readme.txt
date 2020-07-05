@@ -3,7 +3,7 @@ Contributors: giucu91
 Tags: woocommerce, facturare, persoana fizica, persoana juridica
 Requires at least: 3.5
 Tested up to: 5.4
-Stable tag: 1.0.6
+Stable tag: 1.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,18 +11,18 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Datorită legislației în vigoare din România fiecare magazin online trebuie să aibă anumite informații pe factură. Acest modul vine în ajutorul tau si te ajuta sa adaugi respectivele informații mai ușor.
 
-Pentru persoanele fizice poti aduaga:
+Pentru persoanele fizice poți adăuga:
 	- CNP
 
-Pentru persoanele juridice poti adauga:
+Pentru persoanele juridice poți adăuga::
 	- CUI
 	- Nr. Registru Comertului
 	- Nume Banca
 	- IBAN
 
-Acest plugin nu emite facturi, el doar adauga campurile necesare unei facturi pe pagina de checkout.
+Acest plugin nu emite facturi, el doar adaugă câmpurile necesare unei facturi pe pagina de checkout și pe pagina contul meu.
 
-Pentru mai multe informatii vizitati [Modul Facturare](http://georgeciobanu.com/facturare/)
+Pentru mai multe informații vizitați [Modul Facturare](http://georgeciobanu.com/facturare/)
 
 == Installation ==
 
@@ -32,9 +32,9 @@ Dupa activare, du-te la *WooCommerce > Settings > Facturare*
 
 == Frequently Asked Questions ==
 
-= Cum iau campurile din baza de date ? =
+= Cum iau informațiile din baza de date ? =
 
-Pentru a optimiza baza de date, campurile adaugate de acest plugin sunt salvate doar intr-un singur rand din baza de date in loc de 5. In tabela wp_postmeta, avand key-ul 'av_facturare'. Din cauza asta nu este usoara preluarea din baza de date informatii, asa ca am facut urmatoarele key-uri, care nu se gasesc in baza de date, dar o sa va returneze valoarea dorita:
+Pentru a optimiza baza de date, câmpurile adăugate de acest plugin sunt salvate într-un singur rând in baza de date în loc de 5. În tabela wp_postmeta, având key-ul 'av_facturare'. Din cauza asta nu este ușoară preluarea din baza de date a informației, așa că am făcut următoarele key-uri, care nu se găsesc în baza de date, dar o să vă returneze valoarea dorită.
 
 `$cnp = get_post_meta( $order_id, '_billing_facturare_cnp', true );`
 `$nr_reg_com = get_post_meta( $order_id, '_billing_facturare_nr_reg_com', true );`
@@ -50,13 +50,21 @@ Pentru a optimiza baza de date, campurile adaugate de acest plugin sunt salvate 
 
 == Changelog ==
 
+** 1.0.8 **
+- Integrare cu WooCommerce PDF Invoice (https://codecanyon.net/item/woocommerce-pdf-invoice/5951088)
+- Campul CNP nu mai e obligatoriu
+- Integrare cu WooCommerce SmatBill
+
+** 1.0.7 **
+- Stilizat fieldul de tip facturare
+
 ** 1.0.6 **
-- Integrated with checkout fields editor plugins ( Checkout Field Editor for WooCommerce / Flexible Checkout Fields )
-- Added function to get our info from db.
+- Integrarea cu pluginuri pentru modificarea câmpurilor de pe pagina de checkout ( Checkout Field Editor for WooCommerce / Flexible Checkout Fields )
+- Adăugarea de funcții pentru a prelua informațiile din baza de date.
 
 ** 1.0.5 **
-- Added feedback form
-- Fixed incompatibility with CartFlow
+- Adăugarea unui formular de feedback
+- Rezolvat incompatibilitatea cu CartFlow plugin.
 
 ** 1.0.4 **
 - Added return in 'woocommerce_get_settings_pages' filter.

@@ -67,6 +67,10 @@ class Woo_Facturare_Public {
 			'clear'    => true,
 		);
 
+		if ( 'radio' == $options['facturare_output'] ) {
+			$ordered_fields['tip_facturare']['class'][] = 'av_tip_facturare_radio';
+		}
+
 		// Extra Fields
 		$company = $fields['billing_company'];
 		unset( $fields['billing_company'] );
@@ -213,17 +217,19 @@ class Woo_Facturare_Public {
 
 	public function hide_fields() {
 
-		if ( function_exists( 'is_checkout' ) && is_checkout() ) {
-			echo '<style>.woocommerce .woocommerce-billing-fields .av-hide,.wcf-embed-checkout-form .woocommerce form .form-row.av-hide{display:none}</style>';
+		if ( ( function_exists( 'is_checkout' ) && is_checkout() ) || ( function_exists( 'is_account_page' ) && is_account_page() ) ) {
+			echo '<style>.woocommerce .woocommerce-billing-fields .av-hide,.woocommerce .woocommerce-address-fields .av-hide,.wcf-embed-checkout-form .woocommerce form .form-row.av-hide{display:none}.woocommerce .av_tip_facturare_radio span.woocommerce-input-wrapper {display: flex;align-items: center;}.woocommerce .av_tip_facturare_radio span.woocommerce-input-wrapper label + input[type="radio"] {margin-left: 10px;}.woocommerce .av_tip_facturare_radio span.woocommerce-input-wrapper label{line-height:1;}</style>';
 		}
 
 	}
 
 	public function add_js_to_footer() {
 
-		if ( function_exists( 'is_checkout' ) && is_checkout() ) {
+		if ( ( function_exists( 'is_checkout' ) && is_checkout() ) || ( function_exists( 'is_account_page' ) && is_account_page() ) ) {
 			echo '<script>!function(i){"use strict";i(document).ready(function(){i("#tip_facturare, #tip_facturare_field .input-radio").change(function(){"pers-jur"==i(this).val()?(i(".show_if_pers_jur").show(),i(".show_if_pers_fiz").hide()):(i(".show_if_pers_jur").hide(),i(".show_if_pers_fiz").show())})})}(jQuery);</script>';
+			echo '<script>(function($){$(document).ready(function(){if($().selectWoo){if($("select#tip_facturare").length>0){$("select#tip_facturare").selectWoo({minimumResultsForSearch:-1,width: "100%"});}}});})(jQuery);</script>';
 		}
+
 	}
 
 	public function validate_checkout() {
@@ -297,6 +303,10 @@ class Woo_Facturare_Public {
 			'clear'    => true,
 			'value'    => get_user_meta( $customer_id, 'tip_facturare', true ),
 		);
+
+		if ( 'radio' == $options['facturare_output'] ) {
+			$ordered_fields['tip_facturare']['class'][] = 'av_tip_facturare_radio';
+		}
 
 		// Extra Fields
 		$company = $fields['billing_company'];

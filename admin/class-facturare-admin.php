@@ -308,4 +308,18 @@ class Woo_Facturare_Admin {
 
 	}
 
+	public function pdf_macros( $macros, $orderData ){
+
+		$facturare = $orderData->get_meta( 'av_facturare' );
+
+		$macros['{{cnp}}']        = isset( $facturare['cnp'] ) ? $facturare['cnp'] : '';
+		$macros['{{cui}}']        = isset( $facturare['cui'] ) ? $facturare['cui'] : '';
+		$macros['{{nr_reg_com}}'] = isset( $facturare['nr_reg_com'] ) ? $facturare['nr_reg_com'] : '';
+		$macros['{{nume_banca}}'] = isset( $facturare['nume_banca'] ) ? $facturare['nume_banca'] : '';
+		$macros['{{iban}}']       = isset( $facturare['iban'] ) ? $facturare['iban'] : '';
+
+		return $macros;
+
+	}
+
 }

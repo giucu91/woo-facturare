@@ -117,14 +117,14 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 					'title'   => esc_html__( 'Vizibilitate', 'woo-facturare' ),
 					'desc'    => esc_html__( 'Arata acest camp pe pagina de checkout', 'woo-facturare' ),
 					'id'      => 'av_facturare[facturare_pers_fiz_cnp_vizibility]',
-					'default' => 'yes',
+					'default' => 'no',
 					'type'    => 'checkbox',
 				),
 				array(
 					'title'   => esc_html__( 'Obligatoriu', 'woo-facturare' ),
 					'desc'    => __( 'Da, campul <strong>CNP</strong> este Obligatoriu', 'woo-facturare' ),
 					'id'      => 'av_facturare[facturare_pers_fiz_cnp_required]',
-					'default' => 'yes',
+					'default' => 'no',
 					'type'    => 'checkbox',
 				),
 				array(
