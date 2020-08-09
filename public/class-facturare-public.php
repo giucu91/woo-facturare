@@ -88,10 +88,6 @@ class Woo_Facturare_Public {
 				'needed_req'  => $options['facturare_pers_fiz_cnp_required'],
 			);
 
-			if ( 'pers-fiz' != $facturare ) {
-				$extra_fields['cnp']['class'][] = 'av-hide';
-			}
-
 		}
 
 		// Company Field
@@ -103,10 +99,6 @@ class Woo_Facturare_Public {
 			$extra_fields['billing_company']['needed_req']  = $options['facturare_pers_jur_company_required'];
 			$extra_fields['billing_company']['class'][]     = 'show_if_pers_jur';
 			$extra_fields['billing_company']['required']    = false;
-
-			if ( 'pers-jur' != $facturare ) {
-				$extra_fields['billing_company']['class'][] = 'av-hide';
-			}
 
 		}
 
@@ -122,10 +114,6 @@ class Woo_Facturare_Public {
 				'needed_req'  => $options['facturare_pers_jur_cui_required'],
 			);
 
-			if ( 'pers-jur' != $facturare ) {
-				$extra_fields['cui']['class'][] = 'av-hide';
-			}
-
 		}
 
 		// Nr. Reg. Com Field
@@ -139,10 +127,6 @@ class Woo_Facturare_Public {
 				'class'       => array( 'form-row-wide', 'show_if_pers_jur' ),
 				'needed_req'  => $options['facturare_pers_jur_nr_reg_com_required'],
 			);
-
-			if ( 'pers-jur' != $facturare ) {
-				$extra_fields['nr_reg_com']['class'][] = 'av-hide';
-			}
 
 		}
 
@@ -158,10 +142,6 @@ class Woo_Facturare_Public {
 				'needed_req'  => $options['facturare_pers_jur_nume_banca_required'],
 			);
 
-			if ( 'pers-jur' != $facturare ) {
-				$extra_fields['nume_banca']['class'][] = 'av-hide';
-			}
-
 		}
 
 		// IBAN Field
@@ -176,9 +156,6 @@ class Woo_Facturare_Public {
 				'needed_req'  => $options['facturare_pers_jur_iban_required'],
 			);
 
-			if ( 'pers-jur' != $facturare ) {
-				$extra_fields['iban']['class'][] = 'av-hide';
-			}
 		}
 
 		foreach ( $fields as $key => $field ) {
@@ -196,15 +173,59 @@ class Woo_Facturare_Public {
 		return $fields;
 	}
 
-	public function override_field_html( $field, $key, $args ) {
+	public function fix_checkout_args( $args, $key, $value ){
 
-		$our_fields = array( 'cnp', 'iban', 'nume_banca', 'nr_reg_com', 'cui', 'billing_company', 'cnp' );
+		$our_fields = array( 'cnp', 'iban', 'nume_banca', 'nr_reg_com', 'cui', 'billing_company' );
+		$options_keys = array(
+			'cnp' 				=> 'facturare_pers_fiz_cnp_required',
+			'iban' 				=> 'facturare_pers_jur_iban_required',
+			'nume_banca' 		=> 'facturare_pers_jur_nume_banca_required',
+			'nr_reg_com' 		=> 'facturare_pers_jur_nr_reg_com_required',
+			'cui' 				=> 'facturare_pers_jur_cui_required',
+			'billing_company'	=> 'facturare_pers_jur_company_required'
+		);
 
 		if ( in_array( $key, $our_fields ) ) {
-			
+
+			$options = get_option( 'av_facturare', array() );
+			$options = wp_parse_args( $options, $this->defaults );
+			$customer_id = get_current_user_id();
+			$customer_facturare = get_user_meta( $customer_id, 'tip_facturare', true );
+			$facturare = $customer_facturare ? $customer_facturare : $options['facturare_default'];
+
+			if ( 'cnp' == $key && 'pers-fiz' != $facturare ) {
+				$args['class'][] = 'av-hide';
+			}elseif ( 'cnp' != $key && 'pers-jur' != $facturare ) {
+				$args['class'][] = 'av-hide';
+			}
+
+			$args['needed_req'] =  $options[ $options_keys[ $key ] ];
+
+		}
+
+		return $args;
+
+	}
+
+	public function all_fields_are_optional( $fields ){
+		$our_fields = array( 'cnp', 'iban', 'nume_banca', 'nr_reg_com', 'cui', 'billing_company' );
+		foreach ( $our_fields as $our_field ) {
+			if ( isset( $fields['billing'][ $our_field ] ) ) {
+				$fields['billing'][ $our_field ]['required'] = false;
+			}
+		}
+		// print_r( $fields );
+		return $fields;
+	}
+
+	public function override_field_html( $field, $key, $args ) {
+
+		$our_fields = array( 'cnp', 'iban', 'nume_banca', 'nr_reg_com', 'cui', 'billing_company' );
+
+		if ( in_array( $key, $our_fields ) ) {
+
 			$optional_label = '<span class="optional">(' . esc_html__( 'optional', 'woocommerce' ) . ')</span>';
 			$required_label = '<abbr class="required" title="' . esc_attr__( 'required', 'woocommerce' ) . '">*</abbr>';
-
 			if ( 'yes' == $args['needed_req'] ) {
 				$field = str_replace( $optional_label, $required_label, $field );
 			}
@@ -240,8 +261,10 @@ class Woo_Facturare_Public {
 		if ( 'pers-fiz' == $_POST['tip_facturare'] ) {
 			
 			// validate CNP
-			if ( 'yes' == $options['facturare_pers_fiz_cnp_required'] && '' == $_POST['cnp'] && '' != $options['facturare_pers_fiz_cnp_error'] ) {
-				wc_add_notice( $options['facturare_pers_fiz_cnp_error'], 'error' );
+			if ( 'yes' == $options['facturare_pers_fiz_cnp_required'] ) {
+				if ( ! av_validare_cnp( $_POST['cnp'] ) ) {
+					wc_add_notice( $options['facturare_pers_fiz_cnp_error'], 'error' );
+				}
 			}
 
 		}
@@ -254,8 +277,10 @@ class Woo_Facturare_Public {
 			}
 
 			// validate CUI
-			if ( 'yes' == $options['facturare_pers_jur_cui_required'] && '' == $_POST['cui'] && '' != $options['facturare_pers_jur_cui_error'] ) {
-				wc_add_notice( $options['facturare_pers_jur_cui_error'], 'error' );
+			if ( 'yes' == $options['facturare_pers_jur_cui_required'] ) {
+				if ( ! av_validare_cif( $_POST['cui'] ) ) {
+					wc_add_notice( $options['facturare_pers_jur_cui_error'], 'error' );
+				}
 			}
 
 			// validate Nr. Reg. Com.
@@ -269,8 +294,10 @@ class Woo_Facturare_Public {
 			}
 
 			// validate Nume Banca
-			if ( 'yes' == $options['facturare_pers_jur_iban_required'] && '' == $_POST['iban'] && '' != $options['facturare_pers_jur_iban_error'] ) {
-				wc_add_notice( $options['facturare_pers_jur_iban_error'], 'error' );
+			if ( 'yes' == $options['facturare_pers_jur_iban_required'] ) {
+				if ( ! av_validare_ibann( $_POST['iban'] ) ) {
+					wc_add_notice( $options['facturare_pers_jur_iban_error'], 'error' );
+				}
 			}
 
 		}

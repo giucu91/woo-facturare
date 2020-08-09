@@ -25,6 +25,7 @@ class Woo_Facturare {
 	private function load_dependencies() {
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-facturare-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/functions.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-facturare-admin.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-facturare-review.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-facturare-public.php';
@@ -59,9 +60,9 @@ class Woo_Facturare {
 		$this->loader->add_action( 'woocommerce_checkout_update_user_meta', $facturare_admin, 'update_customer_data', 10, 2 );
 
 		// Filter billing fields
-		$this->loader->add_filter( 'woocommerce_order_formatted_billing_address', $facturare_admin, 'filter_billing_fields', 90, 2 );
+		$this->loader->add_filter( 'woocommerce_order_formatted_billing_address', $facturare_admin, 'filter_billing_fields', 9999999, 2 );
 		$this->loader->add_filter( 'woocommerce_my_account_my_address_formatted_address', $facturare_admin, 'myacc_filter_billing_fields', 90, 3 );
-		$this->loader->add_filter( 'woocommerce_formatted_address_replacements', $facturare_admin, 'extra_fields_replacements', 90, 2 );
+		$this->loader->add_filter( 'woocommerce_formatted_address_replacements', $facturare_admin, 'extra_fields_replacements', 9999999, 2 );
 		$this->loader->add_filter( 'woocommerce_localisation_address_formats', $facturare_admin, 'localisation_address_formats', 90 );
 
 		// WC Admin
@@ -95,6 +96,8 @@ class Woo_Facturare {
 		// Change checkout fields
 		$this->loader->add_filter( 'woocommerce_billing_fields', $plugin_public, 'override_checkout_fields', 30 );
 		$this->loader->add_filter( 'woocommerce_form_field', $plugin_public, 'override_field_html', 20, 3 );
+		$this->loader->add_filter( 'woocommerce_form_field_args', $plugin_public, 'fix_checkout_args', 20, 3 );
+		$this->loader->add_filter( 'woocommerce_checkout_fields', $plugin_public, 'all_fields_are_optional', 99999 );
 
 		// Validate checkout fields
 		$this->loader->add_action( 'woocommerce_checkout_process', $plugin_public, 'validate_checkout' );
