@@ -68,4 +68,13 @@ class Facturare_Options_Helper {
 		return isset( $this->options[ $order_id ]['iban'] ) ? $this->options[ $order_id ]['iban'] : '-';
 		
 	}
+
+	public function get_tip( $order_id ){
+		if ( ! isset( $this->options[ $order_id ] ) ) {
+			$this->options[ $order_id ] = get_post_meta( $order_id, 'av_facturare', true );
+		}
+
+		return isset( $this->options[ $order_id ]['tip_facturare'] ) ? $this->options[ $order_id ]['tip_facturare'] : '-';
+		
+	}
 }

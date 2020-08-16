@@ -18,6 +18,7 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'WOOFACTURARE_VERSION', '1.0.8' );
 define( 'WOOFACTURARE_SLUG', plugin_basename( __FILE__ ) );
 define( 'WOOFACTURARE_PATH', plugin_dir_path( __FILE__ ) );
+define( 'WOOFACTURARE_ASSETS', plugin_dir_url( __FILE__ ) . '/assets/' );
 
 require plugin_dir_path( __FILE__ ) . 'includes/class-facturare.php';
 

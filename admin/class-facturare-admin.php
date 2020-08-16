@@ -279,35 +279,6 @@ class Woo_Facturare_Admin {
 
 	}
 
-	public function admin_billing_fields( $billing_fields ){
-
-		$extra_fields = array(
-			'facturare_cnp'   => array(
-				'label' => __( 'CNP', 'woo-facturare' ),
-				'show'  => false,
-			),
-			'facturare_nr_reg_com'   => array(
-				'label' => __( 'Nr. Reg. Com.', 'woo-facturare' ),
-				'show'  => false,
-			),
-			'facturare_cui'   => array(
-				'label' => __( 'CUI', 'woo-facturare' ),
-				'show'  => false,
-			),
-			'facturare_nume_banca'   => array(
-				'label' => __( 'Nume banca', 'woo-facturare' ),
-				'show'  => false,
-			),
-			'facturare_iban'   => array(
-				'label' => __( 'IBAN', 'woo-facturare' ),
-				'show'  => false,
-			),
-		);
-
-		return array_merge( $billing_fields, $extra_fields );
-
-	}
-
 	public function pdf_macros( $macros, $orderData ){
 
 		$facturare = $orderData->get_meta( 'av_facturare' );
@@ -320,6 +291,152 @@ class Woo_Facturare_Admin {
 
 		return $macros;
 
+	}
+
+	public function admin_billing_fields( $fields ){
+		$options = get_option( 'av_facturare', array() );
+		$new_fields = array(
+				'tip_facturare' => array(
+				'label'   		=> __( 'Tip facturare', 'woocommerce' ),
+				'show'    		=> false,
+				'type'    		=> 'select',
+				'wrapper_class' => 'form-field-wide',
+				'options'       => array(
+					'pers-fiz' => esc_html__( 'Persoana Fizica', 'woo-facturare' ),
+	            	'pers-jur' => esc_html__( 'Persoana Juridica', 'woo-facturare' )
+	            ),
+			)
+		);
+		foreach ( $fields as $key => $field ) {
+
+			$new_fields[ $key ] = $field;
+			if ( 'company' == $key ) {
+
+				if ( isset( $options['facturare_pers_fiz_cnp_vizibility'] ) && 'yes' == $options['facturare_pers_fiz_cnp_vizibility'] ) {
+					$new_fields['cnp'] = array(
+						'label'			=> $options['facturare_pers_fiz_cnp_label'],
+						'wrapper_class' => 'form-field-wide av_facturare_field show_if_pers-fiz',
+						'show'			=> false,
+					);
+				}
+
+				if ( isset( $options['facturare_pers_jur_cui_vizibility'] ) && 'yes' == $options['facturare_pers_jur_cui_vizibility'] ) {
+					$new_fields['cui'] = array(
+						'label'	=> $options['facturare_pers_jur_cui_label'],
+						'wrapper_class' => 'av_facturare_field show_if_pers-jur',
+						'show'	=> false,
+					);
+				}
+
+				if ( isset( $options['facturare_pers_jur_nr_reg_com_vizibility'] ) && 'yes' == $options['facturare_pers_jur_nr_reg_com_vizibility'] ) {
+					$new_fields['nr_reg_com'] = array(
+						'label'			=> $options['facturare_pers_jur_nr_reg_com_label'],
+						'wrapper_class' => 'last av_facturare_field show_if_pers-jur',
+						'show'			=> false,
+					);
+				}
+
+				if ( isset( $options['facturare_pers_jur_nume_banca_vizibility'] ) && 'yes' == $options['facturare_pers_jur_nume_banca_vizibility'] ) {
+					$new_fields['nume_banca'] = array(
+						'label'	=> $options['facturare_pers_jur_nume_banca_label'],
+						'wrapper_class' => 'av_facturare_field show_if_pers-jur',
+						'show'	=> false,
+					);
+				}
+
+				if ( isset( $options['facturare_pers_jur_iban_vizibility'] ) && 'yes' == $options['facturare_pers_jur_iban_vizibility'] ) {
+					$new_fields['iban'] = array(
+						'label'			=> $options['facturare_pers_jur_iban_label'],
+						'wrapper_class' => 'last av_facturare_field show_if_pers-jur',
+						'show'			=> false,
+					);
+				}
+			}
+		}
+
+		return $new_fields;
+	}
+
+	public function admin_billing_get_tip_facturare( $value, $object ){
+		$options_helper = Facturare_Options_Helper::get_instance();
+		$value = $options_helper->get_tip( $object->get_id() );
+		return $value;
+	}
+
+	public function admin_billing_get_cnp( $value, $object ){
+		$options_helper = Facturare_Options_Helper::get_instance();
+		$value = $options_helper->get_cnp( $object->get_id() );
+		return $value;
+	}
+
+	public function admin_billing_get_cui( $value, $object ){
+		$options_helper = Facturare_Options_Helper::get_instance();
+		$value = $options_helper->get_cui( $object->get_id() );
+		return $value;
+	}
+
+	public function admin_billing_get_nume_banca( $value, $object ){
+		$options_helper = Facturare_Options_Helper::get_instance();
+		$value = $options_helper->get_nume_banca( $object->get_id() );
+		return $value;
+	}
+
+	public function admin_billing_get_nr_reg_com( $value, $object ){
+		$options_helper = Facturare_Options_Helper::get_instance();
+		$value = $options_helper->get_nr_reg_com( $object->get_id() );
+		return $value;
+	}
+
+	public function admin_billing_get_iban( $value, $object ){
+		$options_helper = Facturare_Options_Helper::get_instance();
+		$value = $options_helper->get_iban( $object->get_id() );
+		return $value;
+	}
+
+	public function save_admin_billing_fields( $order_id ){
+
+		$av_settings = array();
+
+		if ( ! isset( $_POST[ '_billing_tip_facturare' ] ) ) {
+			return;
+		}
+
+		$av_settings['tip_facturare'] = sanitize_text_field( $_POST['_billing_tip_facturare'] );
+		unset( $_POST['_billing_tip_facturare'] );
+
+		if ( 'pers-fiz' == $av_settings['tip_facturare'] ) {
+			if ( isset( $_POST['_billing_cnp'] ) && '' != $_POST['_billing_cnp'] ) {
+				$av_settings['cnp'] = sanitize_text_field( $_POST['_billing_cnp'] );
+				unset( $_POST['_billing_cnp'] );
+			}
+		}elseif ( 'pers-jur' == $av_settings['tip_facturare'] ) {
+
+			$fields = array( '_billing_cui', '_billing_nr_reg_com', '_billing_iban', '_billing_nume_banca' );
+			foreach ( $fields as $field_key ) {
+				$av_key = str_replace( '_billing_', '', $field_key );
+				if ( isset( $_POST[ $field_key ] ) ) {
+					$av_settings[ $av_key ] = sanitize_text_field( $_POST[ $field_key ] );
+					unset( $_POST[ $field_key ] );
+				}
+			}
+
+		}
+
+		update_post_meta( $order_id, 'av_facturare', $av_settings );
+
+	}
+
+	public function admin_enqueue_scripts( $hook ){
+		$screen = get_current_screen();
+		if ( 'post.php' != $hook ) {
+			return;
+		}
+
+		if ( 'shop_order' != $screen->post_type ) {
+			return;
+		}
+
+		wp_enqueue_script( 'woo-facturare', WOOFACTURARE_ASSETS . 'js/admin.js', array( 'jquery' ), WOOFACTURARE_VERSION );
 	}
 
 }

@@ -77,11 +77,23 @@ class Woo_Facturare {
 		$this->loader->add_action( 'woocommerce_page_wc-settings', $facturare_admin, 'contact_box', 99 );
 		$this->loader->add_action( 'woocommerce_page_wc-settings', $facturare_admin, 'stop_advertise', 99 );
 
-		// Order Edit view
-		// $this->loader->add_action( 'woocommerce_admin_billing_fields', $facturare_admin, 'admin_billing_fields' );
-
 		// WooCommerce PDF Invoice - https://codecanyon.net/item/woocommerce-pdf-invoice/5951088
 		$this->loader->add_filter( 'woo_pdf_macros', $facturare_admin, 'pdf_macros', 10, 2 );
+
+		// Admin edit fields
+		$this->loader->add_filter( 'woocommerce_admin_billing_fields', $facturare_admin, 'admin_billing_fields', 10, 2 );
+		$this->loader->add_filter( 'woocommerce_order_get__billing_tip_facturare', $facturare_admin, 'admin_billing_get_tip_facturare', 10, 2 );
+		$this->loader->add_filter( 'woocommerce_order_get__billing_cnp', $facturare_admin, 'admin_billing_get_cnp', 10, 2 );
+		$this->loader->add_filter( 'woocommerce_order_get__billing_cui', $facturare_admin, 'admin_billing_get_cui', 10, 2 );
+		$this->loader->add_filter( 'woocommerce_order_get__billing_nume_banca', $facturare_admin, 'admin_billing_get_nume_banca', 10, 2 );
+		$this->loader->add_filter( 'woocommerce_order_get__billing_nr_reg_com', $facturare_admin, 'admin_billing_get_nr_reg_com', 10, 2 );
+		$this->loader->add_filter( 'woocommerce_order_get__billing_iban', $facturare_admin, 'admin_billing_get_iban', 10, 2 );
+
+		// Save admin fields
+		$this->loader->add_action( 'woocommerce_process_shop_order_meta', $facturare_admin, 'save_admin_billing_fields', 30 );
+
+		// Scripts for conditional fields
+		$this->loader->add_action( 'admin_enqueue_scripts', $facturare_admin, 'admin_enqueue_scripts' );
 
 
 	}

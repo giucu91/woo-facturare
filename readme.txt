@@ -49,6 +49,9 @@ Pentru a optimiza baza de date, câmpurile adăugate de acest plugin sunt salvat
 3. Setări Persoane Juridice
 
 == Changelog ==
+** 1.1.0 **
+- Adaugarea posibilitatii de a edita informatii de facturare din admin din comanda
+- Validarea campurilor de CNP / CUI / IBAN
 
 ** 1.0.8 **
 - Integrare cu WooCommerce PDF Invoice (https://codecanyon.net/item/woocommerce-pdf-invoice/5951088)
