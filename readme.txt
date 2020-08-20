@@ -22,7 +22,14 @@ Pentru persoanele juridice poți adăuga::
 
 Acest plugin nu emite facturi, el doar adaugă câmpurile necesare unei facturi pe pagina de checkout și pe pagina contul meu.
 
-Pentru mai multe informații vizitați [Modul Facturare](http://georgeciobanu.com/facturare/)
+Pentru mai multe informații vizitați [Modul Facturare](https://avianstudio.com/facturare/)
+
+Vreti sa emiteti facturi/proforme cu SmartBill ? Nu a fost niciodata mai simplu ! Cu ajutorul pluginului nostru [WooCommerce SmartBill](https://avianstudio.com/?utm_source=upsell&utm_medium=wporg&utm_campaign=woofacturare) puteti :
+- Genera automat facturi dupa statusul comenzii.
+- Incasa automat facturile in functie de metoda de plata.
+- Gestiune.
+- Genera automat proformele.
+- Adaugarea documentelor emise in email-uri trimise clientilor.
 
 == Installation ==
 
@@ -52,6 +59,7 @@ Pentru a optimiza baza de date, câmpurile adăugate de acest plugin sunt salvat
 ** 1.1.0 **
 - Adaugarea posibilitatii de a edita informatii de facturare din admin din comanda
 - Validarea campurilor de CNP / CUI / IBAN
+- Imbunatatit compatibilitatea cu pluginurile de tip Checkout Field Editor
 
 ** 1.0.8 **
 - Integrare cu WooCommerce PDF Invoice (https://codecanyon.net/item/woocommerce-pdf-invoice/5951088)

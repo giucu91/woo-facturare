@@ -439,4 +439,37 @@ class Woo_Facturare_Admin {
 		wp_enqueue_script( 'woo-facturare', WOOFACTURARE_ASSETS . 'js/admin.js', array( 'jquery' ), WOOFACTURARE_VERSION );
 	}
 
+	// Order metabox
+	public function order_metabox() {
+		$options = get_option( 'av_facturare', array() );
+
+		if ( isset( $options['reclame'] ) && 'yes' == $options['reclame'] ) {
+			return;
+		}
+
+		add_meta_box( 'woo_smartbill_upsell', 'SmartBill', array(
+			$this,
+			'display_order_metabox',
+		), 'shop_order', 'side', 'high' );
+	}
+
+	public function display_order_metabox( $post ){
+		?>
+		<div style="background:#f8dda7;padding:10px;">
+		<h4 style="margin-top:0;">Automatizează magazinul online cu WooCommerce SmartBill</h4>
+		<ul>
+			<li style="margin-bottom:10px;"><span class="dashicons dashicons-saved" style="color:green;margin-right: 5px;"></span>Generare automată a facturilor.</li>
+			<li style="margin-bottom:10px;"><span class="dashicons dashicons-saved" style="color:green;margin-right: 5px;"></span>Incasarea automată a facturilor.</li>
+			<li style="margin-bottom:10px;"><span class="dashicons dashicons-saved" style="color:green;margin-right: 5px;"></span>Gestiune.</li>
+			<li style="margin-bottom:10px;"><span class="dashicons dashicons-saved" style="color:green;margin-right: 5px;"></span>Generare automată a proformelor.</li>
+			<li style="margin-bottom:10px;"><span class="dashicons dashicons-saved" style="color:green;margin-right: 5px;"></span>Adaugarea documentelor in email-uri.</li>
+		</ul>
+
+		<a href="https://avianstudio.com/?utm_source=upsell&utm_medium=wporg&utm_campaign=ordermetabox" target="_blank" class="button button-primary button-hero" style="display:block;text-align:center">Află mai multe</a>
+
+		<p style="font-size:10px;color:#777;text-align:center;">Ascunde această reclamă <a target="_blank" href="<?php echo esc_url( admin_url('admin.php?page=wc-settings&tab=facturare') ) ?>">aici</a></p>
+		</div>
+		<?php
+	}
+
 }

@@ -414,6 +414,13 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 	                'id'      => 'av_facturare[facturare_label]'
 	            ),
 	            array(
+					'title'   => esc_html__( 'Reclame', 'woo-facturare' ),
+					'desc'    => esc_html__( 'Ascunde reclamele.', 'woo-facturare' ),
+					'id'      => 'av_facturare[reclame]',
+					'default' => 'no',
+					'type'    => 'checkbox',
+				),
+	            array(
 					'type' => 'sectionend',
 					'id'   => 'facturare_general_end',
 				),

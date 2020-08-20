@@ -95,6 +95,8 @@ class Woo_Facturare {
 		// Scripts for conditional fields
 		$this->loader->add_action( 'admin_enqueue_scripts', $facturare_admin, 'admin_enqueue_scripts' );
 
+		// Add metabox
+		add_action( 'add_meta_boxes', array( $facturare_admin, 'order_metabox' ) );
 
 	}
 
