@@ -4,7 +4,46 @@ class Woo_Facturare_Admin {
 
 	private $fields =array() ;
 
-	public function __construct() {}
+	public function __construct() {
+		$this->defaults = array(
+			'facturare_pers_fiz_label'                  => esc_html__( 'Persoana Fizica', 'woo-facturare' ),
+			'facturare_pers_fiz_cnp_label'              => esc_html__( 'CNP', 'woo-facturare' ),
+			'facturare_pers_fiz_cnp_placeholder'        => esc_html__( 'Introduceti Codul numeric personal', 'woo-facturare' ),
+			'facturare_pers_fiz_cnp_vizibility'         => 'no',
+			'facturare_pers_fiz_cnp_required'           => 'no',
+			'facturare_pers_fiz_cnp_error'              => esc_html__( 'Datorita legislatiei in vigoare trebuie sa completati campul CNP', 'woo-facturare' ),
+			'facturare_pers_jur_label'                  => esc_html__( 'Persoana Juridica', 'woo-facturare' ),
+			'facturare_pers_jur_company_label'          => esc_html__( 'Nume Firma', 'woo-facturare' ),
+			'facturare_pers_jur_company_placeholder'    => esc_html__( 'Introduceti numele firmei dumneavoastra', 'woo-facturare' ),
+			'facturare_pers_jur_company_vizibility'     => 'yes',
+			'facturare_pers_jur_company_required'       => 'yes',
+			'facturare_pers_jur_company_error'          => esc_html__( 'Pentru a va putea emite factura avem nevoie de numele firmei dumneavoastra', 'woo-facturare' ),
+			'facturare_pers_jur_cui_label'              => esc_html__( 'CUI', 'woo-facturare' ),
+			'facturare_pers_jur_cui_placeholder'        => esc_html__( 'Introduceti Codul Unic de Inregistrare', 'woo-facturare' ),
+			'facturare_pers_jur_cui_vizibility'         => 'yes',
+			'facturare_pers_jur_cui_required'           => 'yes',
+			'facturare_pers_jur_cui_error'              => esc_html__( 'Pentru a va putea emite factura avem nevoie de CUI-ul firmei dumneavoastra', 'woo-facturare' ),
+			'facturare_pers_jur_nr_reg_com_label'       => esc_html__( 'Nr. Reg. Com', 'woo-facturare' ),
+			'facturare_pers_jur_nr_reg_com_placeholder' => 'J20/20/20.02.2020',
+			'facturare_pers_jur_nr_reg_com_vizibility'  => 'yes',
+			'facturare_pers_jur_nr_reg_com_required'    => 'yes',
+			'facturare_pers_jur_nr_reg_com_error'       => esc_html__( 'Pentru a va putea emite factura avem nevoie de numarul de ordine in registrul comertului', 'woo-facturare' ),
+			'facturare_pers_jur_nume_banca_label'       => esc_html__( 'Nume Banca', 'woo-facturare' ),
+			'facturare_pers_jur_nume_banca_placeholder' => esc_html__( 'Numele bancii cu care lucrati', 'woo-facturare' ),
+			'facturare_pers_jur_nume_banca_vizibility'  => 'no',
+			'facturare_pers_jur_nume_banca_required'    => 'no',
+			'facturare_pers_jur_nume_banca_error'       => esc_html__( 'Pentru a va putea emite factura avem nevoie de numele bancii cu care lucrati', 'woo-facturare' ),
+			'facturare_pers_jur_iban_label'             => esc_html__( 'IBAN', 'woo-facturare' ),
+			'facturare_pers_jur_iban_placeholder'       => esc_html__( 'Numarul contului IBAN', 'woo-facturare' ),
+			'facturare_pers_jur_iban_vizibility'        => 'no',
+			'facturare_pers_jur_iban_required'          => 'no',
+			'facturare_pers_jur_iban_error'             => esc_html__( 'Pentru a va putea emite factura avem nevoie de numarul contului', 'woo-facturare' ),
+			'facturare_output'                          => 'select',
+			'facturare_default'                         => 'pers-fiz',
+			'facturare_label'                           => esc_html__( 'Tip Facturare', 'woo-facturare' ),
+			'reclame'									=> 'no',
+		);
+	}
 
 	public function init(){
 		new GC_Facturare_Review();
@@ -295,6 +334,8 @@ class Woo_Facturare_Admin {
 
 	public function admin_billing_fields( $fields ){
 		$options = get_option( 'av_facturare', array() );
+		$options = wp_parse_args( $options, $this->defaults );
+
 		$new_fields = array(
 				'tip_facturare' => array(
 				'label'   		=> __( 'Tip facturare', 'woocommerce' ),
@@ -442,6 +483,7 @@ class Woo_Facturare_Admin {
 	// Order metabox
 	public function order_metabox() {
 		$options = get_option( 'av_facturare', array() );
+		$options = wp_parse_args( $options, $this->defaults );
 
 		if ( isset( $options['reclame'] ) && 'yes' == $options['reclame'] ) {
 			return;
