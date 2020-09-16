@@ -2,7 +2,7 @@
 Contributors: giucu91
 Tags: woocommerce, facturare, persoana fizica, persoana juridica
 Requires at least: 3.5
-Tested up to: 5.4
+Tested up to: 5.5
 Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -22,9 +22,9 @@ Pentru persoanele juridice poți adăuga::
 
 Acest plugin nu emite facturi, el doar adaugă câmpurile necesare unei facturi pe pagina de checkout și pe pagina contul meu.
 
-Pentru mai multe informații vizitați [Modul Facturare](https://avianstudio.com/facturare/)
+Pentru mai multe informații vizitați [Modul Facturare](https://avianstudio.com/facturare/?utm_source=upsell&utm_medium=wporg&utm_campaign=woofacturare)
 
-Vreti sa emiteti facturi/proforme cu SmartBill ? Nu a fost niciodata mai simplu ! Cu ajutorul pluginului nostru [WooCommerce SmartBill](https://avianstudio.com/?utm_source=upsell&utm_medium=wporg&utm_campaign=woofacturare) puteti :
+Vreti sa emiteti facturi/proforme cu SmartBill ? Nu a fost niciodata mai simplu ! Cu ajutorul pluginului nostru [WooCommerce SmartBill](https://avianstudio.com/?utm_source=upsell&utm_medium=wporg&utm_campaign=woosmartbill) puteti :
 - Genera automat facturi dupa statusul comenzii.
 - Incasa automat facturile in functie de metoda de plata.
 - Gestiune.
