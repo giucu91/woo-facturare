@@ -465,7 +465,7 @@ class Woo_Facturare_Admin {
 			<li style="margin-bottom:10px;"><span class="dashicons dashicons-saved" style="color:green;margin-right: 5px;"></span>Adaugarea documentelor in email-uri.</li>
 		</ul>
 
-		<a href="https://avianstudio.com/?utm_source=upsell&utm_medium=wporg&utm_campaign=ordermetabox" target="_blank" class="button button-primary button-hero" style="display:block;text-align:center">Află mai multe</a>
+		<a href="https://avianstudio.com/plugin/woocommerce-smartbill?utm_source=upsell&utm_medium=wporg&utm_campaign=ordermetabox" target="_blank" class="button button-primary button-hero" style="display:block;text-align:center">Află mai multe</a>
 
 		<p style="font-size:10px;color:#777;text-align:center;">Ascunde această reclamă <a target="_blank" href="<?php echo esc_url( admin_url('admin.php?page=wc-settings&tab=facturare') ) ?>">aici</a></p>
 		</div>
