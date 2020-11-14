@@ -179,10 +179,10 @@ class Woo_Facturare {
 		$options_helper = Facturare_Options_Helper::get_instance();
 
 		if ( isset( $data['client'] ) ) {
-			$cui = $options_helper->get_cui( $order_id );
 
-			if ( $cui ) {
+			if ( 'pers-jur' == $options_helper->get_tip( $order_id ) ) {
 				$order = new WC_Order($order_id);
+				$cui = $options_helper->get_cui( $order_id );
 
 				$client = array(
 					"name"       => $order->get_billing_company(),
