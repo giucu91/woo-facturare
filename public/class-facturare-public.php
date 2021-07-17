@@ -295,7 +295,7 @@ class Woo_Facturare_Public {
 
 			// validate Nume Banca
 			if ( 'yes' == $options['facturare_pers_jur_iban_required'] ) {
-				if ( ! av_validare_ibann( $_POST['iban'] ) ) {
+				if ( ! av_validare_iban( $_POST['iban'] ) ) {
 					wc_add_notice( $options['facturare_pers_jur_iban_error'], 'error' );
 				}
 			}
