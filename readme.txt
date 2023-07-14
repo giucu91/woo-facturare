@@ -3,7 +3,7 @@ Contributors: giucu91
 Tags: woocommerce, facturare, persoana fizica, persoana juridica
 Requires at least: 3.5
 Tested up to: 6.1
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,6 +56,10 @@ Pentru a optimiza baza de date, câmpurile adăugate de acest plugin sunt salvat
 3. Setări Persoane Juridice
 
 == Changelog ==
+
+** 1.1.3 **
+- Adaugat wpml-config.xml pentru a putea traduce optiunile din plugin.
+
 ** 1.1.2 **
 - Reparat validarea codul IBAN.
 

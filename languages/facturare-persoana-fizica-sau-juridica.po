@@ -1,15 +1,15 @@
-# Copyright (C) 2021 George Ciobanu
+# Copyright (C) 2023 Avian Studio
 # This file is distributed under the same license as the Facturare - Persoana Fizica sau Juridica package.
 msgid ""
 msgstr ""
 "Project-Id-Version: Facturare - Persoana Fizica sau Juridica 1.1.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/facturare-persoana-fizica-sau-juridica\n"
-"POT-Creation-Date: 2021-07-17 14:30:52+00:00\n"
+"POT-Creation-Date: 2023-07-14 22:28:45+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en\n"
@@ -333,5 +333,9 @@ msgid ""
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "George Ciobanu"
+msgid "Avian Studio"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://avianstudio.com/"
 msgstr ""
