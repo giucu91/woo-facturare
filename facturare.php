@@ -5,7 +5,8 @@
  * Plugin URI:        https://facturare.georgeciobanu.com
  * Description:       Adaugă câmpurile necesare facturării persoanelor fizice sau juridice conform legislației din Romania în vigoare.
  * Version:           1.1.2
- * Author:            George Ciobanu
+ * Author:            Avian Studio
+ * Author URI:        https://avianstudio.com/
  * Text Domain:       woo-facturare
  * Domain Path:       /languages
  */
