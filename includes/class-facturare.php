@@ -128,6 +128,13 @@ class Woo_Facturare {
 		// Woo Smartbill
 		$this->loader->add_filter( 'woo_smartbill_data', $this, 'filter_smartbill_data', 10, 2 );
 
+		/* Integrations */
+		//1.Oblio
+		$this->loader->add_filter( 'woocommerce_oblio_invoice_data', $this, 'filter_oblio_data', 10, 2 );
+
+		//2.easysales
+		$this->loader->add_filter( 'woocommerce_oblio_invoice_data', $this, 'filter_easysales_data', 10, 2 );
+
 	}
 
 	public function run() {
@@ -201,6 +208,39 @@ class Woo_Facturare {
 
 			}
 
+		}
+
+		return $data;
+
+	}
+
+	// Oblio integration
+	public function filter_oblio_data( $data, $order_id ){
+		$options_helper = Facturare_Options_Helper::get_instance();
+
+		if ( 'pers-jur' == $options_helper->get_tip( $order_id ) ) {
+
+			$data['client']['cif']  = $options_helper->get_cui( $order_id );
+			$data['client']['rc']   = $options_helper->get_nr_reg_com( $order_id );
+			$data['client']['iban'] = $options_helper->get_iban( $order_id );
+			$data['client']['bank'] = $options_helper->get_nume_banca( $order_id );
+
+		}
+
+		return $data;
+
+	}
+
+	public function filter_easysales_data( $data, $order ){
+
+		$options_helper = Facturare_Options_Helper::get_instance();
+		$order_id       = $order->get_id();
+
+		if ( 'pers-jur' == $options_helper->get_tip( $order_id ) ) {
+			$data['customer']['vat_id']  = $options_helper->get_cui( $order_id );
+			$data['customer']['registration_number']   = $options_helper->get_nr_reg_com( $order_id );
+			$data['customer']['iban'] = $options_helper->get_iban( $order_id );
+			$data['customer']['bank'] = $options_helper->get_nume_banca( $order_id );
 		}
 
 		return $data;
