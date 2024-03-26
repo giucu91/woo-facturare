@@ -91,10 +91,16 @@ class Woo_Facturare {
 		$this->loader->add_filter( 'woocommerce_order_get__billing_iban', $facturare_admin, 'admin_billing_get_iban', 10, 2 );
 
 		// Save admin fields
-		$this->loader->add_action( 'woocommerce_process_shop_order_meta', $facturare_admin, 'save_admin_billing_fields', 30 );
+		$this->loader->add_action( 'woocommerce_process_shop_order_meta', $facturare_admin, 'save_admin_billing_fields', 30, 2 );
 
 		// Scripts for conditional fields
 		$this->loader->add_action( 'admin_enqueue_scripts', $facturare_admin, 'admin_enqueue_scripts' );
+
+		// woo facturare pro upsell
+		$this->loader->add_action( 'admin_notices', $facturare_admin, 'show_woopro_notice' );
+		$this->loader->add_action( 'wp_ajax_woofacturarepro', $facturare_admin, 'dismiss_woopro_notice' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $facturare_admin, 'enqueue' );
+		$this->loader->add_action( 'admin_print_footer_scripts', $facturare_admin, 'ajax_script' );
 
 		// Add metabox
 		add_action( 'add_meta_boxes', array( $facturare_admin, 'order_metabox' ) );
@@ -133,7 +139,7 @@ class Woo_Facturare {
 		$this->loader->add_filter( 'woocommerce_oblio_invoice_data', $this, 'filter_oblio_data', 10, 2 );
 
 		//2.easysales
-		$this->loader->add_filter( 'woocommerce_oblio_invoice_data', $this, 'filter_easysales_data', 10, 2 );
+		$this->loader->add_filter( 'es_order_info_transform', $this, 'filter_easysales_data', 10, 2 );
 
 	}
 

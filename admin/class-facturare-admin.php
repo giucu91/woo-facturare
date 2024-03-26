@@ -1,5 +1,7 @@
 <?php
 
+use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+
 class Woo_Facturare_Admin {
 
 	private $fields =array() ;
@@ -145,7 +147,10 @@ class Woo_Facturare_Admin {
 		}
 
 		if ( ! empty( $av_settings ) ) {
-			update_post_meta( $order_id, 'av_facturare', $av_settings );
+			$order = wc_get_order( $order_id );
+			$order->update_meta_data( 'av_facturare', $av_settings );
+			$order->save();
+			// update_post_meta( $order_id, 'av_facturare', $av_settings );
 		}
 
 	}
@@ -434,7 +439,7 @@ class Woo_Facturare_Admin {
 		return $value;
 	}
 
-	public function save_admin_billing_fields( $order_id ){
+	public function save_admin_billing_fields( $order_id, $order ){
 
 		$av_settings = array();
 
@@ -463,17 +468,19 @@ class Woo_Facturare_Admin {
 
 		}
 
-		update_post_meta( $order_id, 'av_facturare', $av_settings );
+		$order = wc_get_order( $order_id );
+		$order->update_meta_data( 'av_facturare', $av_settings );
+		$order->save();
+		// update_post_meta( $order_id, 'av_facturare', $av_settings );
 
 	}
 
 	public function admin_enqueue_scripts( $hook ){
-		$screen = get_current_screen();
-		if ( 'post.php' != $hook ) {
-			return;
-		}
+		$screen = class_exists( '\Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController' ) && wc_get_container()->get( CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled()
+		? wc_get_page_screen_id( 'shop-order' )
+		: 'shop_order';
 
-		if ( 'shop_order' != $screen->post_type ) {
+		if ( ! in_array( $screen, array( 'shop_order', 'woocommerce_page_wc-orders' ) ) ) {
 			return;
 		}
 
@@ -489,10 +496,14 @@ class Woo_Facturare_Admin {
 			return;
 		}
 
+		$screen = class_exists( '\Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController' ) && wc_get_container()->get( CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled()
+		? wc_get_page_screen_id( 'shop-order' )
+		: 'shop_order';
+
 		add_meta_box( 'woo_smartbill_upsell', 'SmartBill', array(
 			$this,
 			'display_order_metabox',
-		), 'shop_order', 'side', 'high' );
+		), $screen, 'side', 'high' );
 	}
 
 	public function display_order_metabox( $post ){
@@ -511,6 +522,76 @@ class Woo_Facturare_Admin {
 
 		<p style="font-size:10px;color:#777;text-align:center;">Ascunde această reclamă <a target="_blank" href="<?php echo esc_url( admin_url('admin.php?page=wc-settings&tab=facturare') ) ?>">aici</a></p>
 		</div>
+		<?php
+	}
+
+	public function show_woopro_notice(){
+
+		if ( 'dismiss' == get_option( 'woofacturareproupsell' ) ) {
+			return;
+		}
+
+		?>
+		<div id="woo-facturare-pro-upsell" class="notice notice-success woocommerce-message" style="margin-top:30px;">
+			<a class="woocommerce-message-close notice-dismiss woofacturarprobutton" href="#">Dismiss</a>
+			<p style="font-size:15px">Salut 👋,</p>
+			<p style="font-size:15px">Sunt George, autorul pluginul de Facturare și vreau să te anunț că am lansat <a href="https://avianstudio.com/plugin/woocommerce-facturare-pro/?utm_source=woofacturareupsell&utm_medium=link&utm_campaign=upsell" target="_blank"><strong>WooCommerce Facturare PRO</strong></a>, cu următoarele funcționalități:</p>
+			<ol>
+				<li><strong>Taxe diferite pentru persoane fizice și juridice.</strong> Prin această funcționalitate, poți stabili o taxă pentru persoanele fizice și o altă taxă pentru persoanele juridice. Prețurile din magazin se vor actualiza automat în funcție de tipul de client, bazat pe informațiile furnizate de utilizator.</li>
+				<li><strong>Afișare prețuri cu și fără TVA.</strong> Poți permite clienților tăi să vizualizeze prețurile atât cu TVA, cât și fără. Nu mai este necesar să folosești coduri preluate de pe internet pentru a afișa prețurile în ambele moduri.</li>
+				<li><strong>Vinde doar B2B.</strong> Acum poți limita vânzările doar către persoane juridice, iar pe pagina de finalizare a comenzii vor apărea doar informațiile necesare acestui tip de client.</li>
+				<li><strong>Campuri inregistrare.</strong> Acum, câmpurile din pluginul de facturare sunt disponibile și pe pagina de înregistrare. Astfel, clienții se pot înregistra selectând opțiunea corespunzătoare pentru persoane fizice sau juridice.</li>
+			</ol>
+			<p class="actions">
+				<a id="woo-facturare-rate" href="https://avianstudio.com/plugin/woocommerce-facturare-pro/?utm_source=woofacturareupsell&utm_medium=button&utm_campaign=upsell" target="_blank" class="button button-primary woofacturarprobutton">Află mai mult.</a>
+				<a id="woo-facturare-no-rate" href="#" style="margin-left:10px" class="woofacturarprobutton">Nu mă interesează.</a>
+			</p>
+		</div>
+		<?php
+
+	}
+
+	public function dismiss_woopro_notice(){
+
+		check_ajax_referer( 'woo-facturare-pro-upsell', 'security' );
+		update_option( 'woofacturareproupsell', 'dismiss' );
+
+	}
+
+	public function enqueue() {
+		wp_enqueue_script( 'jquery' );
+	}
+
+	public function ajax_script() {
+
+		$ajax_nonce = wp_create_nonce( "woo-facturare-pro-upsell" );
+
+		?>
+
+		<script type="text/javascript">
+			jQuery( document ).ready( function( $ ){
+
+				$( '#woo-facturare-pro-upsell .woofacturarprobutton' ).click( function( evt ){
+					var href = $(this).attr('href');
+
+					if ( '#' == href ) { evt.preventDefault(); }
+
+					var data = {
+						action: 'woofacturarepro',
+						security: '<?php echo $ajax_nonce; ?>',
+					};
+
+					$.post( '<?php echo admin_url( 'admin-ajax.php' ) ?>', data, function( response ) {
+						$( '#woo-facturare-pro-upsell' ).slideUp( 'fast', function() {
+							$( this ).remove();
+						} );
+					});
+
+				} );
+
+			});
+		</script>
+
 		<?php
 	}
 
