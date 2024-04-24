@@ -102,6 +102,9 @@ class Woo_Facturare {
 		$this->loader->add_action( 'admin_enqueue_scripts', $facturare_admin, 'enqueue' );
 		$this->loader->add_action( 'admin_print_footer_scripts', $facturare_admin, 'ajax_script' );
 
+		// load data in order view
+		$this->loader->add_filter( 'woocommerce_ajax_get_customer_details', $facturare_admin, 'add_facturare_data', 10, 3 );
+
 		// Add metabox
 		add_action( 'add_meta_boxes', array( $facturare_admin, 'order_metabox' ) );
 

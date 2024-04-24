@@ -220,6 +220,13 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 	                'default' => esc_html__( 'Introduceti Codul Unic de Inregistrare', 'woo-facturare' ),
 	                'id'      => 'av_facturare[facturare_pers_jur_cui_placeholder]'
 	            ),
+	            array(
+					'title'   => esc_html__( 'Validare', 'woo-facturare' ),
+					'desc'    => esc_html__( 'Folosim un algoritm ca sa ne asiguram ca CUI-ul introdus este valid, din pacate aceasta validare este doar pentru CUI-urile din Romania.', 'woo-facturare' ),
+					'id'      => 'av_facturare[facturare_pers_jur_cui_validare]',
+					'default' => 'yes',
+					'type'    => 'checkbox',
+				),
 				array(
 					'title'   => esc_html__( 'Vizibilitate', 'woo-facturare' ),
 					'desc'    => esc_html__( 'Arata acest camp pe pagina de checkout', 'woo-facturare' ),

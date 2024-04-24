@@ -3,7 +3,7 @@ Contributors: giucu91
 Tags: woocommerce, facturare, persoana fizica, persoana juridica
 Requires at least: 3.5
 Tested up to: 6.2
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,11 +24,11 @@ Pentru persoanele juridice poți adăuga::
 
 Pentru mai multe informații vizitați [Modul Facturare](https://avianstudio.com/facturare/?utm_source=wporg&utm_medium=woofacturare&utm_campaign=upsell)
 
-[WooCommerce Facturare PRO](https://avianstudio.com/plugin/woocommerce-facturare-pro/?utm_source=wporg&utm_medium=woofacturarepro&utm_campaign=upsell) oferă următoarele funcționalități: clienții pot vizualiza prețurile produselor, inclusiv cu sau fără TVA, și sistemul se adaptează automat la legislația în vigoare privind taxarea diferită în funcție de tipul de cumpărător, un exemplu in acest sens ar fi taxele pentru sistemele fotovoltaice.
+[Facturare PRO for WooCommerce](https://avianstudio.com/plugin/woocommerce-facturare-pro/?utm_source=wporg&utm_medium=woofacturarepro&utm_campaign=upsell) oferă următoarele funcționalități: clienții pot vizualiza prețurile produselor, inclusiv cu sau fără TVA, și sistemul se adaptează automat la legislația în vigoare privind taxarea diferită în funcție de tipul de cumpărător, un exemplu in acest sens ar fi taxele pentru sistemele fotovoltaice.
 
-Vreti sa emiteti facturi/proforme cu SmartBill ? Nu a fost niciodata mai simplu ! Cu ajutorul pluginului nostru [WooCommerce SmartBill](https://avianstudio.com/?utm_source=wporg&utm_medium=woosmartbill&utm_campaign=upsell) puteti automatiza procesul de facturare.
+Vreti sa emiteti facturi/proforme cu SmartBill ? Nu a fost niciodata mai simplu ! Cu ajutorul pluginului nostru [SmartBill for WooCommerce](https://avianstudio.com/?utm_source=wporg&utm_medium=woosmartbill&utm_campaign=upsell) puteti automatiza procesul de facturare.
 
-Poți automatiza preluarea informațiilor despre companii în funcție de CUI, pentru mai multe detalii vezi : [OpenAPI WooCommerce](https://avianstudio.com/?utm_source=wporg&utm_medium=wooopenapi&utm_campaign=upsell)
+Poți automatiza preluarea informațiilor despre companii în funcție de CUI, pentru mai multe detalii vezi : [OpenAPI for WooCommerce](https://avianstudio.com/?utm_source=wporg&utm_medium=wooopenapi&utm_campaign=upsell)
 
 
 == Installation ==
@@ -49,14 +49,6 @@ Pentru a optimiza baza de date, câmpurile adăugate de acest plugin sunt salvat
 `$nume_banca = get_post_meta( $order_id, '_billing_facturare_nume_banca', true );`
 `$iban = get_post_meta( $order_id, '_billing_facturare_iban', true );`
 
-= Nu imi apar campurile pe pagina de checkout ? =
-
-Cel mai frecvent motiv pentru care campurile din acest plugin nu apar pe checkout este deoarce este instalat un plugin de "Checkout Field Editor" si acesta trebuie resetat deoarece daca este deja setat nu vede campurile adaugate de acest plugin.
-
-= Se poate integra cu FGO ? =
-
-Da. 
-
 == Screenshots ==
 
 1. Setări Generale
@@ -64,6 +56,10 @@ Da.
 3. Setări Persoane Juridice
 
 == Changelog ==
+
+** 1.2.1 **
+- Fix: Transmiterea datelor de facturare cand se creaza o noua comanda din dashboardul adminului si este ales un client existent
+- Added: Optiune de a nu valida CUI-ul pentru magazinele care au clienti si din afara Romaniei
 
 ** 1.2.0 **
 - Reparat campurile speciale

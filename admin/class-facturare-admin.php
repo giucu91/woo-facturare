@@ -595,4 +595,23 @@ class Woo_Facturare_Admin {
 		<?php
 	}
 
+	public function add_facturare_data( $data, $customer, $user_id ){
+
+		if ( isset( $data['billing'] ) ) {
+			$tip_facturare = get_user_meta( $user_id, 'tip_facturare', true );
+			$cnp = get_user_meta( $user_id, 'cnp', true );
+			$cui = get_user_meta( $user_id, 'cui', true );
+			$nume_banca = get_user_meta( $user_id, 'nume_banca', true );
+			$iban = get_user_meta( $user_id, 'iban', true );
+
+			$data['billing']['tip_facturare'] = $tip_facturare ? $tip_facturare : 'pers-fiz';
+			$data['billing']['cnp'] = $cnp ? $cnp : '-';
+			$data['billing']['cui'] = $cui ? $cui : '-';
+			$data['billing']['nume_banca'] = $nume_banca ? $nume_banca : '-';
+		}
+
+		return $data;
+
+	}
+
 }

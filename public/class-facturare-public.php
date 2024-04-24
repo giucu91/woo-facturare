@@ -21,6 +21,7 @@ class Woo_Facturare_Public {
 			'facturare_pers_jur_cui_label'              => esc_html__( 'CUI', 'woo-facturare' ),
 			'facturare_pers_jur_cui_placeholder'        => esc_html__( 'Introduceti Codul Unic de Inregistrare', 'woo-facturare' ),
 			'facturare_pers_jur_cui_vizibility'         => 'yes',
+			'facturare_pers_jur_cui_validare'           => 'yes',
 			'facturare_pers_jur_cui_required'           => 'yes',
 			'facturare_pers_jur_cui_error'              => esc_html__( 'Pentru a va putea emite factura avem nevoie de CUI-ul firmei dumneavoastra', 'woo-facturare' ),
 			'facturare_pers_jur_nr_reg_com_label'       => esc_html__( 'Nr. Reg. Com', 'woo-facturare' ),
@@ -278,7 +279,10 @@ class Woo_Facturare_Public {
 
 			// validate CUI
 			if ( 'yes' == $options['facturare_pers_jur_cui_required'] ) {
-				if ( ! av_validare_cif( $_POST['cui'] ) ) {
+				if ( '' == $_POST['cui'] ) {
+					wc_add_notice( $options['facturare_pers_jur_cui_error'], 'error' );
+				}
+				if ( 'yes' == $options['facturare_pers_jur_cui_validare'] && ! av_validare_cif( $_POST['cui'] ) ) {
 					wc_add_notice( $options['facturare_pers_jur_cui_error'], 'error' );
 				}
 			}
