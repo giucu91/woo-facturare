@@ -6,6 +6,7 @@ Tested up to: 6.3
 Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Adaugă câmpurile necesare facturării persoanelor fizice sau juridice conform legislației din Romania în vigoare.
 
 == Description ==
 
@@ -22,7 +23,7 @@ Pentru persoanele juridice poți adăuga::
 
 **Acest plugin nu emite facturi, el doar adaugă câmpurile necesare unei facturi pe pagina de checkout.**
 
-Pentru mai multe informații vizitați [Modul Facturare](https://avianstudio.com/facturare/?utm_source=wporg&utm_medium=woofacturare&utm_campaign=upsell)
+Pentru mai multe informații vizitați [Modul Facturare](https://avianstudio.com/plugin/facturare-for-woocommerce/?utm_source=wporg&utm_medium=woofacturare&utm_campaign=upsell)
 
 [Facturare PRO for WooCommerce](https://avianstudio.com/plugin/woocommerce-facturare-pro/?utm_source=wporg&utm_medium=woofacturarepro&utm_campaign=upsell) oferă următoarele funcționalități: clienții pot vizualiza prețurile produselor, inclusiv cu sau fără TVA, și sistemul se adaptează automat la legislația în vigoare privind taxarea diferită în funcție de tipul de cumpărător, un exemplu in acest sens ar fi taxele pentru sistemele fotovoltaice.
 
