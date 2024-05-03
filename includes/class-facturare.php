@@ -188,6 +188,20 @@ class Woo_Facturare {
 
 		}
 
+		// smartbill compatibility
+		$smartbill_keys = array( 'smartbill_billing_type', 'smartbill_cif', 'smartbill_regcom', 'smartbill_billing_cif', 'smartbill_billing_nr_reg_com' );
+		if ( in_array( $meta_key, $smartbill_keys ) ) {
+
+			if ( 'smartbill_regcom' == $meta_key || 'smartbill_billing_nr_reg_com' == $meta_key ) {
+				return $options_helper->get_nr_reg_com( $object_id );
+			}
+
+			if ( 'smartbill_cif' == $meta_key || 'smartbill_billing_cif' == $meta_key ) {
+				return $options_helper->get_cui( $object_id );
+			}
+
+		}
+
 		return $metadata;
 	}
 
