@@ -221,3 +221,13 @@ function av_validare_cif( $cif ){
  	}
  	return $c1 === $c2;
 }
+
+function av_facturare_logger( $message, $data ){
+
+    $options = get_option( 'av_facturare', array() );
+    if ( ! isset( $options['debug'] ) || 'no' == $options['debug'] ) {
+        return;
+    }
+
+    wc_get_logger()->info( $message, $data );
+}

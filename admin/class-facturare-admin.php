@@ -46,6 +46,7 @@ class Woo_Facturare_Admin {
 			'facturare_default'                         => 'pers-fiz',
 			'facturare_label'                           => esc_html__( 'Tip Facturare', 'woo-facturare' ),
 			'reclame'									=> 'no',
+			'debug'									    => 'no',
 		);
 	}
 
@@ -285,6 +286,7 @@ class Woo_Facturare_Admin {
 	}
 
 	public function localisation_address_formats( $formats ) {
+
 		$formats['default'] = "{name}\n{cnp}\n{company}\n{cui}\n{nr_reg_com}\n{nume_banca}\n{iban}\n{address_1}\n{address_2}\n{city}\n{state}\n{postcode}\n{country}";
 
 		return $formats;

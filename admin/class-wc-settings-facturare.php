@@ -428,6 +428,13 @@ class WC_Settings_Facturare extends WC_Settings_Page {
 	                'id'      => 'av_facturare[facturare_label]'
 	            ),
 	            array(
+					'title'   => esc_html__( 'Debug', 'woo-facturare' ),
+					'desc'    => esc_html__( 'Activează modul de depanare pentru a identifica erorile.', 'woo-facturare' ),
+					'id'      => 'av_facturare[debug]',
+					'default' => 'no',
+					'type'    => 'checkbox',
+				),
+	            array(
 					'title'   => esc_html__( 'Reclame', 'woo-facturare' ),
 					'desc'    => esc_html__( 'Ascunde reclamele.', 'woo-facturare' ),
 					'id'      => 'av_facturare[reclame]',
