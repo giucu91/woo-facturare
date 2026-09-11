@@ -45,11 +45,12 @@ class Woo_Facturare_Experimental_Checkout {
 		);
 
 		add_action( 'woocommerce_init', array( $this, 'register_fields' ) );
-		add_filter('woocommerce_get_country_locale', array( $this, 'order_fields' ) );
+		add_filter( 'woocommerce_get_country_locale', array( $this, 'order_fields' ) );
 		add_action( 'woocommerce_set_additional_field_value', array( $this, 'save_fields' ), 10, 4 );
 		add_action( 'woocommerce_store_api_checkout_order_processed', array( $this, 'delete_meta' ) );
-		add_action( 'woocommerce_store_api_checkout_update_customer_from_request', array( $this, 'check_company_visibility' ), 10, 2 );
-		add_action( 'woocommerce_store_api_cart_update_customer_from_request', array( $this, 'check_company_visibility' ), 10, 2 );
+		add_action( 'wp_head', array( $this, 'enqueue_block_styles' ) );
+		add_filter( 'pre_option_woocommerce_checkout_company_field', array( $this, '_return_hide' ) );
+		add_filter( 'woocommerce_get_default_value_for_avfacturare/tip_facturare', array( $this, 'default_tip_facturare' ), 10, 3 );
 
 	}
 
@@ -167,6 +168,53 @@ class Woo_Facturare_Experimental_Checkout {
 			);
 
 			if ( 'no' == $options['facturare_pers_jur_cui_required'] ) {
+				$args['required'] = false;
+			}
+
+			woocommerce_register_additional_checkout_field( $args );
+
+		}
+
+		// Company Field
+		if ( 'yes' == $options['facturare_pers_jur_company_vizibility'] ) {
+
+			$args = array(
+				'id'            => 'avfacturare/company',
+				'label'         => $options['facturare_pers_jur_company_label'],
+				'optionalLabel' => $options['facturare_pers_jur_company_label'],
+				'location'      => 'address',
+				'type'          => 'text',
+				'required' => [
+					'customer' => [
+						'properties' => [
+							'address' => [
+								'properties' => [
+									'avfacturare/tip_facturare' => [
+										'const' => 'pers-jur'
+									]
+								]
+							]
+						]
+					]
+				],
+				'hidden' => [
+					'customer' => [
+						'properties' => [
+							'address' => [
+								'properties' => [
+									'avfacturare/tip_facturare' => [
+										'not' => [
+											'const' => 'pers-jur'
+										]
+									]
+								]
+							]
+						]
+					]
+				]
+			);
+
+			if ( 'no' == $options['facturare_pers_jur_company_required'] ) {
 				$args['required'] = false;
 			}
 
@@ -296,7 +344,9 @@ class Woo_Facturare_Experimental_Checkout {
 							'address' => [
 								'properties' => [
 									'avfacturare/tip_facturare' => [
-										'const' => 'pers-fiz'
+										'not' => [
+											'const' => 'pers-jur'
+										]
 									]
 								]
 							]
@@ -319,11 +369,11 @@ class Woo_Facturare_Experimental_Checkout {
 		$fields = array(
 			'avfacturare/tip_facturare' => 1,
 			'avfacturare/cnp' => 1,
-			'avfacturare/cui' => 1,
-			'company' => 2,
+			'avfacturare/cui' => 2,
 			'avfacturare/nr_reg_com' => 2,
-			'avfacturare/nume_banca' => 2,
-			'avfacturare/iban' => 2,
+			'avfacturare/company' => 3,
+			'avfacturare/nume_banca' => 4,
+			'avfacturare/iban' => 4,
 		);
 
 		foreach ( $locale as $key => $value ) {
@@ -333,39 +383,10 @@ class Woo_Facturare_Experimental_Checkout {
 						'priority' => $priority,
 					];
 			}
-			
+
 			$locale[ $key ]['country'] = [
-				'priority' => 3,
+				'priority' => 5,
 			];
-
-			// $locale[ $key ]['company']['required'] = [
-			// 		'customer' => [
-			// 			'properties' => [
-			// 				'address' => [
-			// 					'properties' => [
-			// 						'avfacturare/tip_facturare' => [
-			// 							'const' => 'pers-jur'
-			// 						]
-			// 					]
-			// 				]
-			// 			]
-			// 		]
-			// 	];
-
-
-			// $locale[ $key ]['company']['hidden'] = [
-			// 		'customer' => [
-			// 			'properties' => [
-			// 				'address' => [
-			// 					'properties' => [
-			// 						'avfacturare/tip_facturare' => [
-			// 							'const' => 'pers-fiz'
-			// 						]
-			// 					]
-			// 				]
-			// 			]
-			// 		]
-			// 	];
 
 		}
 
@@ -374,11 +395,20 @@ class Woo_Facturare_Experimental_Checkout {
 
 	public function save_fields( $key, $value, $group, $wc_object ){
 
-		$keys = array( 'avfacturare/tip_facturare', 'avfacturare/cnp', 'avfacturare/cui', 'avfacturare/nr_reg_com', 'avfacturare/nume_banca', 'avfacturare/iban' );
+		$keys = array( 'avfacturare/tip_facturare', 'avfacturare/cnp', 'avfacturare/cui', 'avfacturare/company', 'avfacturare/nr_reg_com', 'avfacturare/nume_banca', 'avfacturare/iban' );
 		if ( in_array( $key, $keys ) ) {
 			$options_helper = Facturare_Options_Helper::get_instance();
 			$meta = $options_helper->set_block_field( $wc_object, $key, $value, $group );
 			$wc_object->delete_meta_data( $key );
+		}
+
+		// Map avfacturare/company to billing_company
+		if ( 'avfacturare/company' === $key ) {
+			if ( $wc_object instanceof WC_Order ) {
+				$wc_object->set_billing_company( $value );
+			} elseif ( $wc_object instanceof WC_Customer ) {
+				$wc_object->set_billing_company( $value );
+			}
 		}
 
 		return;
@@ -387,7 +417,7 @@ class Woo_Facturare_Experimental_Checkout {
 
 	public function delete_meta( $order ){
 
-		$keys = array( 'avfacturare/tip_facturare', 'avfacturare/cnp', 'avfacturare/cui', 'avfacturare/nr_reg_com', 'avfacturare/nume_banca', 'avfacturare/iban' );
+		$keys = array( 'avfacturare/tip_facturare', 'avfacturare/cnp', 'avfacturare/cui', 'avfacturare/company', 'avfacturare/nr_reg_com', 'avfacturare/nume_banca', 'avfacturare/iban' );
 
 		foreach ( array( '_wc_billing/', '_wc_shipping/' ) as $prefix ) {
 			foreach ( $keys as $key ) {
@@ -406,23 +436,69 @@ class Woo_Facturare_Experimental_Checkout {
 
 	}
 
-	// hide company
-	public function check_company_visibility( $customer, $request ){
+	public function enqueue_block_styles() {
 
-		if ( 'pers-fiz' == $request['additional_fields']['avfacturare/tip_facturare'] ) {
-			add_filter( 'default_option_woocommerce_checkout_phone_field', array( $this, '_return_hide' ), 10, 1 );
-		}else{
-			add_filter( 'default_option_woocommerce_checkout_phone_field', array( $this, '_return_required' ), 10, 1 );
+		if ( ! function_exists( 'is_checkout' ) || ! is_checkout() ) {
+			return;
 		}
 
+		$options = get_option( 'av_facturare', array() );
+		$options = wp_parse_args( $options, $this->defaults );
+
+		$billing = '.wc-block-checkout__billing-fields .wc-block-components-address-form';
+		$shipping = '.wc-block-checkout__shipping-fields .wc-block-components-address-form';
+
+		echo '<style>';
+
+		// Tip Facturare - always full width
+		echo $billing . ' .wc-block-components-select-input-avfacturare-tip_facturare,' . $shipping . ' .wc-block-components-select-input-avfacturare-tip_facturare { flex: 0 0 100%; }';
+
+		// CNP - full width when visible
+		echo $billing . ' .wc-block-components-address-form__avfacturare-cnp,' . $shipping . ' .wc-block-components-address-form__avfacturare-cnp { flex: 0 0 100%; }';
+
+		// CUI - align with Nr. Reg. Com vertically (specificity 0,5,0 to override WC :first-child+ rule)
+		echo '.wc-block-checkout ' . $billing . ' .wc-block-components-text-input.wc-block-components-address-form__avfacturare-cui,' . '.wc-block-checkout ' . $shipping . ' .wc-block-components-text-input.wc-block-components-address-form__avfacturare-cui { margin-top: 12px; }';
+
+		// CUI + Nr. Reg. Com: full width only when the other is not visible
+		$cui_visible = 'yes' == $options['facturare_pers_jur_cui_vizibility'];
+		$nr_reg_com_visible = 'yes' == $options['facturare_pers_jur_nr_reg_com_vizibility'];
+
+		if ( $cui_visible && ! $nr_reg_com_visible ) {
+			echo $billing . ' .wc-block-components-address-form__avfacturare-cui,' . $shipping . ' .wc-block-components-address-form__avfacturare-cui { flex: 0 0 100%; }';
+		}
+		if ( ! $cui_visible && $nr_reg_com_visible ) {
+			echo $billing . ' .wc-block-components-address-form__avfacturare-nr_reg_com,' . $shipping . ' .wc-block-components-address-form__avfacturare-nr_reg_com { flex: 0 0 100%; }';
+		}
+
+		// Company - full width
+		echo $billing . ' .wc-block-components-address-form__avfacturare-company,' . $shipping . ' .wc-block-components-address-form__avfacturare-company { flex: 0 0 100%; }';
+
+		// Nume Banca + IBAN: full width only when the other is not visible
+		$nume_banca_visible = 'yes' == $options['facturare_pers_jur_nume_banca_vizibility'];
+		$iban_visible = 'yes' == $options['facturare_pers_jur_iban_vizibility'];
+
+		if ( $nume_banca_visible && ! $iban_visible ) {
+			echo $billing . ' .wc-block-components-address-form__avfacturare-nume_banca,' . $shipping . ' .wc-block-components-address-form__avfacturare-nume_banca { flex: 0 0 100%; }';
+		}
+		if ( ! $nume_banca_visible && $iban_visible ) {
+			echo $billing . ' .wc-block-components-address-form__avfacturare-iban,' . $shipping . ' .wc-block-components-address-form__avfacturare-iban { flex: 0 0 100%; }';
+		}
+
+		// Country - restore margin-top (WC removes it via .wc-block-components-country-input rule)
+		echo '.wc-block-components-form .wc-block-components-checkout-step.wc-block-checkout__billing-fields .wc-block-components-address-form .wc-block-components-country-input,' . '.wc-block-components-form .wc-block-components-checkout-step.wc-block-checkout__shipping-fields .wc-block-components-address-form .wc-block-components-country-input { margin-top: 12px; }';
+
+		echo '</style>';
+
+	}
+
+	public function default_tip_facturare( $value, $group, $wc_object ) {
+		$options = get_option( 'av_facturare', array() );
+		$options = wp_parse_args( $options, $this->defaults );
+		return $options['facturare_default'];
 	}
 
 	public function _return_hide(){
 		return 'hidden';
-	}
-
-	public function _return_required(){
-		return 'required';
 	}
 
 }

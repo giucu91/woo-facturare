@@ -73,7 +73,12 @@ class Woo_Facturare_Public {
 		}
 
 		// Extra Fields
-		$company = $fields['billing_company'];
+		$company = isset( $fields['billing_company'] ) ? $fields['billing_company'] : array(
+			'type'     => 'text',
+			'label'    => __( 'Company name', 'woocommerce' ),
+			'class'    => array( 'form-row-wide' ),
+			'priority' => 30,
+		);
 		unset( $fields['billing_company'] );
 		$extra_fields = array();
 
@@ -258,47 +263,55 @@ class Woo_Facturare_Public {
 		$options = get_option( 'av_facturare', array() );
 		$options = wp_parse_args( $options, $this->defaults );
 
-		if ( 'pers-fiz' == $_POST['tip_facturare'] ) {
-			
+		$tip_facturare  = isset( $_POST['tip_facturare'] ) ? sanitize_text_field( $_POST['tip_facturare'] ) : '';
+		$cnp            = isset( $_POST['cnp'] ) ? sanitize_text_field( $_POST['cnp'] ) : '';
+		$billing_company = isset( $_POST['billing_company'] ) ? sanitize_text_field( $_POST['billing_company'] ) : '';
+		$cui            = isset( $_POST['cui'] ) ? sanitize_text_field( $_POST['cui'] ) : '';
+		$nr_reg_com     = isset( $_POST['nr_reg_com'] ) ? sanitize_text_field( $_POST['nr_reg_com'] ) : '';
+		$nume_banca     = isset( $_POST['nume_banca'] ) ? sanitize_text_field( $_POST['nume_banca'] ) : '';
+		$iban           = isset( $_POST['iban'] ) ? sanitize_text_field( $_POST['iban'] ) : '';
+
+		if ( 'pers-fiz' == $tip_facturare ) {
+
 			// validate CNP
 			if ( 'yes' == $options['facturare_pers_fiz_cnp_required'] ) {
-				if ( ! av_validare_cnp( $_POST['cnp'] ) ) {
+				if ( ! av_validare_cnp( $cnp ) ) {
 					wc_add_notice( $options['facturare_pers_fiz_cnp_error'], 'error' );
 				}
 			}
 
 		}
 
-		if ( 'pers-jur' == $_POST['tip_facturare'] ) {
-			
+		if ( 'pers-jur' == $tip_facturare ) {
+
 			// validate Nume Firma
-			if ( 'yes' == $options['facturare_pers_jur_company_required'] && '' == $_POST['billing_company'] && '' != $options['facturare_pers_jur_company_error'] ) {
+			if ( 'yes' == $options['facturare_pers_jur_company_required'] && '' == $billing_company && '' != $options['facturare_pers_jur_company_error'] ) {
 				wc_add_notice( $options['facturare_pers_jur_company_error'], 'error' );
 			}
 
 			// validate CUI
 			if ( 'yes' == $options['facturare_pers_jur_cui_required'] ) {
-				if ( '' == $_POST['cui'] ) {
+				if ( '' == $cui ) {
 					wc_add_notice( $options['facturare_pers_jur_cui_error'], 'error' );
 				}
-				if ( 'yes' == $options['facturare_pers_jur_cui_validare'] && ! av_validare_cif( $_POST['cui'] ) ) {
+				if ( 'yes' == $options['facturare_pers_jur_cui_validare'] && ! av_validare_cif( $cui ) ) {
 					wc_add_notice( $options['facturare_pers_jur_cui_error'], 'error' );
 				}
 			}
 
 			// validate Nr. Reg. Com.
-			if ( 'yes' == $options['facturare_pers_jur_nr_reg_com_required'] && '' == $_POST['nr_reg_com'] && '' != $options['facturare_pers_jur_nr_reg_com_error'] ) {
+			if ( 'yes' == $options['facturare_pers_jur_nr_reg_com_required'] && '' == $nr_reg_com && '' != $options['facturare_pers_jur_nr_reg_com_error'] ) {
 				wc_add_notice( $options['facturare_pers_jur_nr_reg_com_error'], 'error' );
 			}
 
 			// validate Nume Banca
-			if ( 'yes' == $options['facturare_pers_jur_nume_banca_required'] && '' == $_POST['nume_banca'] && '' != $options['facturare_pers_jur_nume_banca_error'] ) {
+			if ( 'yes' == $options['facturare_pers_jur_nume_banca_required'] && '' == $nume_banca && '' != $options['facturare_pers_jur_nume_banca_error'] ) {
 				wc_add_notice( $options['facturare_pers_jur_nume_banca_error'], 'error' );
 			}
 
-			// validate Nume Banca
+			// validate IBAN
 			if ( 'yes' == $options['facturare_pers_jur_iban_required'] ) {
-				if ( ! av_validare_iban( $_POST['iban'] ) ) {
+				if ( ! av_validare_iban( $iban ) ) {
 					wc_add_notice( $options['facturare_pers_jur_iban_error'], 'error' );
 				}
 			}
@@ -339,7 +352,12 @@ class Woo_Facturare_Public {
 		}
 
 		// Extra Fields
-		$company = $fields['billing_company'];
+		$company = isset( $fields['billing_company'] ) ? $fields['billing_company'] : array(
+			'type'     => 'text',
+			'label'    => __( 'Company name', 'woocommerce' ),
+			'class'    => array( 'form-row-wide' ),
+			'priority' => 30,
+		);
 		unset( $fields['billing_company'] );
 		$extra_fields = array();
 
@@ -453,6 +471,10 @@ class Woo_Facturare_Public {
 
 		if ( isset( $_POST['cui'] ) ) {
 			update_user_meta( $user_id, 'cui', sanitize_text_field( $_POST['cui'] ) );
+		}
+
+		if ( isset( $_POST['nr_reg_com'] ) ) {
+			update_user_meta( $user_id, 'nr_reg_com', sanitize_text_field( $_POST['nr_reg_com'] ) );
 		}
 
 		if ( isset( $_POST['nume_banca'] ) ) {

@@ -626,13 +626,16 @@ class Woo_Facturare_Admin {
 			$tip_facturare = get_user_meta( $user_id, 'tip_facturare', true );
 			$cnp = get_user_meta( $user_id, 'cnp', true );
 			$cui = get_user_meta( $user_id, 'cui', true );
+			$nr_reg_com = get_user_meta( $user_id, 'nr_reg_com', true );
 			$nume_banca = get_user_meta( $user_id, 'nume_banca', true );
 			$iban = get_user_meta( $user_id, 'iban', true );
 
 			$data['billing']['tip_facturare'] = $tip_facturare ? $tip_facturare : 'pers-fiz';
 			$data['billing']['cnp'] = $cnp ? $cnp : '-';
 			$data['billing']['cui'] = $cui ? $cui : '-';
+			$data['billing']['nr_reg_com'] = $nr_reg_com ? $nr_reg_com : '-';
 			$data['billing']['nume_banca'] = $nume_banca ? $nume_banca : '-';
+			$data['billing']['iban'] = $iban ? $iban : '-';
 		}
 
 		return $data;

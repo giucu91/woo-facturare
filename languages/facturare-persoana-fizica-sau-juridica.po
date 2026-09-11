@@ -1,15 +1,15 @@
-# Copyright (C) 2025 Avian Studio
+# Copyright (C) 2026 Avian Studio
 # This file is distributed under the same license as the Facturare - Persoana Fizica sau Juridica package.
 msgid ""
 msgstr ""
 "Project-Id-Version: Facturare - Persoana Fizica sau Juridica 1.2.99\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/facturare-persoana-fizica-sau-juridica\n"
-"POT-Creation-Date: 2025-11-13 20:54:30+00:00\n"
+"POT-Creation-Date: 2026-03-27 08:02:21+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2025-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2026-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en\n"
@@ -23,7 +23,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-Bookmarks: \n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: grunt-wp-i18n 1.0.3\n"
+"X-Generator: grunt-wp-i18n 1.0.4\n"
 
 #: admin/class-facturare-admin.php:12 admin/class-facturare-admin.php:99
 #: admin/class-facturare-admin.php:376 admin/class-wc-settings-facturare.php:40
@@ -339,11 +339,15 @@ msgstr ""
 msgid "Ascunde reclamele."
 msgstr ""
 
-#: public/class-facturare-public.php:227
+#: public/class-facturare-public.php:78 public/class-facturare-public.php:357
+msgid "Company name"
+msgstr ""
+
+#: public/class-facturare-public.php:232
 msgid "optional"
 msgstr ""
 
-#: public/class-facturare-public.php:228
+#: public/class-facturare-public.php:233
 msgid "required"
 msgstr ""
 
